@@ -5,7 +5,7 @@
     {{ include('partials/title-meta.html.twig', {title: 'Product Details'}) }}
 
     <!--Swiper slider css-->
-    <link href="assets/libs/swiper/swiper-bundle.min.css" rel="stylesheet" type="text/css"/>
+    <link href=" {{ asset('assets/libs/swiper/swiper-bundle.min.css') }}" rel="stylesheet" type="text/css"/>
 
     {{ include('partials/head-css.html.twig') }}
 
@@ -38,19 +38,24 @@
                                             <div class="swiper product-thumbnail-slider p-2 rounded bg-light">
                                                 <div class="swiper-wrapper">
                                                     <div class="swiper-slide">
-                                                        <img src="assets/images/products/img-8.png" alt=""
+                                                        <img id="main-product-pic"
+                                                             src="{{ asset('assets/images/products/img-8.png') }}"
+                                                             alt=""
                                                              class="img-fluid d-block"/>
                                                     </div>
                                                     <div class="swiper-slide">
-                                                        <img src="assets/images/products/img-6.png" alt=""
+                                                        <img src="{{ asset('assets/images/products/img-6.png') }}"
+                                                             alt=""
                                                              class="img-fluid d-block"/>
                                                     </div>
                                                     <div class="swiper-slide">
-                                                        <img src="assets/images/products/img-1.png" alt=""
+                                                        <img src="{{ asset('assets/images/products/img-1.png') }}"
+                                                             alt=""
                                                              class="img-fluid d-block"/>
                                                     </div>
                                                     <div class="swiper-slide">
-                                                        <img src="assets/images/products/img-8.png" alt=""
+                                                        <img src="{{ asset('assets/images/products/img-8.png') }}"
+                                                             alt=""
                                                              class="img-fluid d-block"/>
                                                     </div>
                                                 </div>
@@ -62,25 +67,29 @@
                                                 <div class="swiper-wrapper">
                                                     <div class="swiper-slide">
                                                         <div class="nav-slide-item">
-                                                            <img src="assets/images/products/img-8.png" alt=""
+                                                            <img src="{{ asset('assets/images/products/img-8.png') }}"
+                                                                 alt=""
                                                                  class="img-fluid d-block"/>
                                                         </div>
                                                     </div>
                                                     <div class="swiper-slide">
                                                         <div class="nav-slide-item">
-                                                            <img src="assets/images/products/img-6.png" alt=""
+                                                            <img src="{{ asset('assets/images/products/img-6.png') }}"
+                                                                 alt=""
                                                                  class="img-fluid d-block"/>
                                                         </div>
                                                     </div>
                                                     <div class="swiper-slide">
                                                         <div class="nav-slide-item">
-                                                            <img src="assets/images/products/img-1.png" alt=""
+                                                            <img src="{{ asset('assets/images/products/img-1.png') }}"
+                                                                 alt=""
                                                                  class="img-fluid d-block"/>
                                                         </div>
                                                     </div>
                                                     <div class="swiper-slide">
                                                         <div class="nav-slide-item">
-                                                            <img src="assets/images/products/img-8.png" alt=""
+                                                            <img src="{{ asset('assets/images/products/img-1.png') }}"
+                                                                 alt=""
                                                                  class="img-fluid d-block"/>
                                                         </div>
                                                     </div>
@@ -95,7 +104,7 @@
                                         <div class="mt-xl-0 mt-5">
                                             <div class="d-flex">
                                                 <div class="flex-grow-1">
-                                                    <h4>Full Sleeve Sweatshirt for Men (Pink)</h4>
+                                                    <h4 id="product-title">Full Sleeve Sweatshirt for Men (Pink)</h4>
                                                     <div class="hstack gap-3 flex-wrap">
                                                         <div><a href="#" class="text-primary d-block">Tommy Hilfiger</a>
                                                         </div>
@@ -307,8 +316,9 @@
                                             <!-- end row -->
 
                                             <div class="mt-4 text-muted">
-                                                <h5 class="fs-14">Description :</h5>
-                                                <p>Tommy Hilfiger men striped pink sweatshirt. Crafted with cotton.
+                                                <h5 id="product-description-title" class="fs-14">Description :</h5>
+                                                <p id="product-short-description">Tommy Hilfiger men striped pink
+                                                    sweatshirt. Crafted with cotton.
                                                     Material composition is 100% organic cotton. This is one of the
                                                     world’s leading designer lifestyle brands and is internationally
                                                     recognized for celebrating the essence of classic American cool
@@ -623,12 +633,12 @@
 
                                                                             <div class="d-flex flex-grow-1 gap-2 mb-3">
                                                                                 <a href="#" class="d-block">
-                                                                                    <img src="{{ asset('assets/small/img-12.jpg') }}"
+                                                                                    <img src="{{ asset('assets/images/small/img-12.jpg') }}"
                                                                                          alt=""
                                                                                          class="avatar-sm rounded object-fit-cover">
                                                                                 </a>
                                                                                 <a href="#" class="d-block">
-                                                                                    <img src="{{ asset('assets/small/img-11.jpg') }}"
+                                                                                    <img src="{{ asset('assets/images/small/img-11.jpg') }}"
                                                                                          alt=""
                                                                                          class="avatar-sm rounded object-fit-cover">
                                                                                 </a>
@@ -775,13 +785,14 @@
 {{ include('partials/vendor-scripts.html.twig') }}
 
 <!--Swiper slider js-->
-<script src="assets/libs/swiper/swiper-bundle.min.js"></script>
+<script src=" {{ asset('assets/libs/swiper/swiper-bundle.min.js') }}"></script>
 
 <!-- ecommerce product details init -->
-<script src="assets/js/pages/ecommerce-product-details.init.js"></script>
+<script src="{{ asset('assets/js/pages/ecommerce-product-details.init.js') }}"></script>
 
 <!-- App js -->
-<script src="assets/js/app.js"></script>
+<script src="{{ asset('assets/js/app.js') }}"></script>
+<script src="{{ asset('assets/js/custom.js') }}"></script>
 </body>
 
 </html>

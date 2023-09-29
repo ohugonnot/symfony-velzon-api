@@ -7,23 +7,22 @@ use App\Repository\FileRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: FileRepository::class)]
 #[ApiResource(
-    normalizationContext: [
-        'groups' => ['file:list'],
-    ],
+//    normalizationContext: [
+//        'groups' => ['file:list'],
+//    ],
 )]
 class File
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['file:list', 'file:item'])]
+//    #[Groups(['file:list', 'file:item'])]
     private ?int $id = null;
 
-    #[Groups(['file:list', 'file:item'])]
+//    #[Groups(['file:list', 'file:item'])]
     #[ORM\Column(length: 255)]
     private ?string $url = null;
 

@@ -647,8 +647,8 @@ function loadCharts() {
             markers: [{
                 name: "United States",
                 coords: [37.0902, 95.7129],
-                style: {
-                    image: "assets/images/flags/us.svg",
+                // style: {
+                //     image: "assets/images/flags/us.svg",
                 }
             },
             {

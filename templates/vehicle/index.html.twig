@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<title>Vehicle index</title>
+
+{% block body %}
+    <h1>Vehicle index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Immat</th>
+                <th>EntryDate</th>
+                <th>Marque</th>
+                <th>Modele</th>
+                <th>Carburant</th>
+                <th>NumAssurance</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for vehicle in vehicles %}
+            <tr>
+                <td>{{ vehicle.id }}</td>
+                <td>{{ vehicle.immat }}</td>
+                <td>{{ vehicle.entryDate ? vehicle.entryDate|date('Y-m-d') : '' }}</td>
+                <td>{{ vehicle.marque }}</td>
+                <td>{{ vehicle.modele }}</td>
+                <td>{{ vehicle.carburant }}</td>
+                <td>{{ vehicle.numAssurance }}</td>
+                <td>
+                    <a href="{{ path('app_vehicle_show', {'id': vehicle.id}) }}">show</a>
+                    <a href="{{ path('app_vehicle_edit', {'id': vehicle.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_vehicle_new') }}">Create new</a>
+{% endblock %}

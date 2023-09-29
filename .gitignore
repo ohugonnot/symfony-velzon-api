@@ -1,0 +1,10 @@
+.env
+.env.test
+.idea/
+bin/
+config/
+migrations/
+tests/
+translations/
+var/
+vendor/

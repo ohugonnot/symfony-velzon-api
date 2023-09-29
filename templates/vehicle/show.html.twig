@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<title>Vehicle</title>
+
+{% block body %}
+    <h1>Vehicle</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ vehicle.id }}</td>
+            </tr>
+            <tr>
+                <th>Immat</th>
+                <td>{{ vehicle.immat }}</td>
+            </tr>
+            <tr>
+                <th>EntryDate</th>
+                <td>{{ vehicle.entryDate ? vehicle.entryDate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Marque</th>
+                <td>{{ vehicle.marque }}</td>
+            </tr>
+            <tr>
+                <th>Modele</th>
+                <td>{{ vehicle.modele }}</td>
+            </tr>
+            <tr>
+                <th>Carburant</th>
+                <td>{{ vehicle.carburant }}</td>
+            </tr>
+            <tr>
+                <th>NumAssurance</th>
+                <td>{{ vehicle.numAssurance }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_vehicle_index') }}">back to list</a>
+
+    <a href="{{ path('app_vehicle_edit', {'id': vehicle.id}) }}">edit</a>
+
+    {{ include('vehicle/_delete_form.html.twig') }}
+{% endblock %}

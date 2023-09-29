@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<title>Employee</title>
+
+{% block body %}
+    <h1>Employee</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ employee.id }}</td>
+            </tr>
+            <tr>
+                <th>FirstName</th>
+                <td>{{ employee.firstName }}</td>
+            </tr>
+            <tr>
+                <th>LastName</th>
+                <td>{{ employee.lastName }}</td>
+            </tr>
+            <tr>
+                <th>BirthDate</th>
+                <td>{{ employee.birthDate ? employee.birthDate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>EntryDate</th>
+                <td>{{ employee.entryDate ? employee.entryDate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>ExitDate</th>
+                <td>{{ employee.exitDate ? employee.exitDate|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_employee_index') }}">back to list</a>
+
+    <a href="{{ path('app_employee_edit', {'id': employee.id}) }}">edit</a>
+
+    {{ include('employee/_delete_form.html.twig') }}
+{% endblock %}

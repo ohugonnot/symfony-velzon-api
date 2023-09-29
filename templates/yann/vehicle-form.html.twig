@@ -1,0 +1,89 @@
+{% extends 'yann/base.html.twig' %}
+{% block body %}
+    {{ form_start(form) }}
+
+<!-- Basic Input -->
+<div class="">
+    {{ form_row(form.immat) }}
+</div>
+
+<!-- Input Date -->
+<div>
+    {{ form_row(form.entryDate) }}
+</div>
+
+
+    <div class="">
+        {{ form_row(form.marque) }}
+    </div>
+    <div class="">
+        {{ form_row(form.modele) }}
+    </div>
+    <div class="">
+        {{ form_row(form.carburant) }}
+    </div>
+    <div class="">
+        {{ form_row(form.numAssurance) }}
+    </div>
+    <div class="">
+        {{ form_row(form.employee) }}
+    </div>
+    <div class="">
+    {{ form_row(form.active) }}
+</div>
+
+{#    #}
+{#<div class="">#}
+{#    <label for="marque" class="form-label">Marque</label>#}
+{#    <input type="text" class="form-control" name="vehicle[marque]" id="vehicle_marque">#}
+{#</div>#}
+{#<div class="">#}
+{#    <label for="modele" class="form-label">Modèle</label>#}
+{#    <input type="text" class="form-control" name="vehicle[modele]" id="vehicle_modele">#}
+{#</div>#}
+{#<div class="">#}
+{#    <label for="carburant" class="form-label">Carburant</label>#}
+{#    <input type="text" class="form-control" name="vehicle[carburant]" id="vehicle_carburant">#}
+{#</div>#}
+{#<div class="">#}
+{#    <label for="numAssurance" class="form-label">N° Assurance</label>#}
+{#    <input type="text" class="form-control" name="vehicle[numAssurance]" id="vehicle_numAssurance">#}
+{#</div>#}
+{#    <!-- Datalist example -->#}
+{#    <div>#}
+{#        {% for employee in employees %}#}
+{#        <div>iciiiiiiiiiiiiiiiiiii</div>#}
+{#            {% endfor %}#}
+{#        {{ employees.findAll[0] }}#}
+{#    <label for="exampleDataList" class="form-label">Datalist example</label>#}
+{#    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Search your country...">#}
+{#    <datalist id="datalistOptions">#}
+{#        {% for employee in employees %}#}
+{#        <option value="{{ employee.firstName }}">#}
+{#        {% endfor %}#}
+{#        <option value="New York">#}
+{#        <option value="France">#}
+{#        <option value="Spain">#}
+{#        <option value="Chicago">#}
+{#        <option value="Bulgaria">#}
+{#        <option value="Hong Kong">#}
+{#    </datalist>#}
+{#    </div>#}
+{#    <div>#}
+{#    <input type="hidden" name="token" value="{{ csrf_token('save') }}">#}
+{#</div>#}
+{#        <div>#}
+{#            <input type="hidden" id="vehicle__token" name="vehicle[_token]" value="de55c5f29372107f336219d5eda.GnrAJAl7GOYQjbfPRIErD_JwMlMOCAMRWpEF8hJKOiA.VB2CE3wvTb554PH6Msp_W6ABQDdFUkBoCM5okWFnf1dQApVGOjlvqSK9hw">#}
+{#        </div>#}
+    <div class="col-12 mt-4">
+        <button class="btn">{{ button_label|default('Save') }}</button>
+{#            <button class="btn btn-primary" type="submit">Submit form</button>#}
+    </div>
+
+    {{ form_end(form) }}
+
+
+
+
+
+{% endblock %}

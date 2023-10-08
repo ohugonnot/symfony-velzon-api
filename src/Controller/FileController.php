@@ -97,7 +97,7 @@ class FileController extends AbstractController
             //if it doesn't exists, we create the directory
             //named as file->category
 
-            $rootDirectory = './assets/uploads/';
+            $rootDirectory = './assets/uploads';
             $category = $file->getCategory();
             $targetDirectory = $rootDirectory . $category;
             $targetFile = $targetDirectory . '/' . $newFilename;

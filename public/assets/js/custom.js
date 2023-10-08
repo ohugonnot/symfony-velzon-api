@@ -1,6 +1,9 @@
 const shortDesc = document.querySelector('#product-short-description')
 shortDesc.innerHTML = ""
 
+const longDesc = document.querySelector('#product-long-desc')
+longDesc.innerHTML = ""
+
 const productTitle = document.querySelector('#product-title')
 productTitle.textContent = ""
 
@@ -19,6 +22,7 @@ const datas = fetch(fetchUrl).then((response => response.json())).then((data =>
 function renderContent(datas) {
     console.log(datas)
     shortDesc.innerHTML = datas.excerpt.rendered
+    longDesc.innerHTML = datas.content.rendered
     productTitle.textContent = datas.title.rendered
     const fetchByImgId = fetchMediasUrl + datas.featured_media
     console.log(datas.featured_media)
@@ -33,3 +37,4 @@ function renderMedias(datas) {
     productFeatImg.src = datas.source_url
     productFeatImg.alt = datas.alt_text
 }
+

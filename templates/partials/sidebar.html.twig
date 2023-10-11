@@ -1,7 +1,7 @@
 <!-- ========== App Menu ========== -->
 <div class="app-menu navbar-menu">
     <!-- LOGO -->
-    <div class="navbar-brand-box">
+    <div style="background-color: #e85511" class="navbar-brand-box">
         <!-- Dark Logo-->
         <a href="/" class="logo logo-dark">
             <span class="logo-sm">
@@ -16,8 +16,9 @@
             <span class="logo-sm">
                 <img src="{{ asset('assets/images/logo-sm.png') }}" alt="" height="22">
             </span>
-            <span class="logo-lg">
-                <img src="{{ asset('assets/images/logo-light.png') }}" alt="" height="17">
+            <spanclass
+            ="logo-lg">
+            <img src="{{ asset('assets/images/dumatos_logo_rectangle_RVB.jpg') }}" alt="" height="40">
             </span>
         </a>
         <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover"
@@ -41,22 +42,6 @@
                     <div class="collapse menu-dropdown" id="dumatosDashboards">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ path('app_vehicle_index') }}" class="nav-link" data-key="t-vehicles">
-                                    Véhicules </a>
-                                {#                                todo: data key a gerer #}
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ path('app_file_index') }}" class="nav-link" data-key="t-files">
-                                    Fichiers </a>
-
-                                {#                                todo: data key a gerer #}
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ path('app_product_index') }}" class="nav-link" data-key="t-files">
-                                    Produits </a>
-                                {#                                todo: data key a gerer #}
-                            </li>
-                            <li class="nav-item">
                                 <a href="{{ path('app_objectif_index') }}" class="nav-link" data-key="t-files">
                                     Objectifs </a>
                                 {#                                todo: data key a gerer #}
@@ -72,13 +57,35 @@
                                 {#                                todo: data key a gerer #}
                             </li>
                             <li class="nav-item">
+                                <a href="{{ path('app_file_index') }}" class="nav-link" data-key="t-files">
+                                    Fichiers </a>
+
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('app_vehicle_index') }}" class="nav-link" data-key="t-vehicles">
+                                    Véhicules </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{ path('app_tag_index') }}" class="nav-link" data-key="t-files">
                                     Tags </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('app_product_index') }}" class="nav-link" data-key="t-files">
+                                    Produits </a>
                                 {#                                todo: data key a gerer #}
                             </li>
                         </ul>
                     </div>
                 </li> <!-- end Dashboard Menu -->
+                <hr>
+                <li class="nav-item">
+                    <a class="nav-link menu-link">
+                        <i class="nav-item"></i> <span>Exemples</span>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarDashboards" data-bs-toggle="collapse" role="button"
                        aria-expanded="false" aria-controls="sidebarDashboards">

@@ -111,79 +111,93 @@
                                             </tr>
                                             </thead>
                                             <tbody class="list form-check-all">
-                                            <tr>
-                                                <th scope="row">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="chk_child"
-                                                               value="option1">
-                                                    </div>
-                                                </th>
-                                                <td class="id" style="display:none;"><a href="javascript:void(0);"
-                                                                                        class="fw-medium link-primary">#VZ001</a>
-                                                </td>
-                                                <td class="name">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0"><img
-                                                                    src="assets/images/users/avatar-10.jpg" alt=""
-                                                                    class="avatar-xs rounded-circle"></div>
-                                                        <div class="flex-grow-1 ms-2 name">Tonya Noble</div>
-                                                    </div>
-                                                </td>
-                                                <td class="company_name">Nesta Technologies</td>
-                                                <td class="email_id">tonyanoble@velzon.com</td>
-                                                <td class="phone">414-453-5725</td>
-                                                <td class="lead_score">154</td>
-                                                <td class="tags">
-                                                    <span class="badge bg-primary-subtle text-primary">Lead</span>
-                                                    <span class="badge bg-primary-subtle text-primary">Partner</span>
-                                                </td>
-                                                <td class="date">15 Dec, 2021 <small class="text-muted">08:58AM</small>
-                                                </td>
-                                                <td>
-                                                    <ul class="list-inline hstack gap-2 mb-0">
-                                                        <li class="list-inline-item edit" data-bs-toggle="tooltip"
-                                                            data-bs-trigger="hover" data-bs-placement="top"
-                                                            title="Call">
-                                                            <a href="javascript:void(0);"
-                                                               class="text-muted d-inline-block">
-                                                                <i class="ri-phone-line fs-16"></i>
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-inline-item edit" data-bs-toggle="tooltip"
-                                                            data-bs-trigger="hover" data-bs-placement="top"
-                                                            title="Message">
-                                                            <a href="javascript:void(0);"
-                                                               class="text-muted d-inline-block">
-                                                                <i class="ri-question-answer-line fs-16"></i>
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <div class="dropdown">
-                                                                <button class="btn btn-soft-secondary btn-sm dropdown"
-                                                                        type="button" data-bs-toggle="dropdown"
-                                                                        aria-expanded="false">
-                                                                    <i class="ri-more-fill align-middle"></i>
-                                                                </button>
-                                                                <ul class="dropdown-menu dropdown-menu-end">
-                                                                    <li><a class="dropdown-item view-item-btn"
-                                                                           href="javascript:void(0);"><i
-                                                                                    class="ri-eye-fill align-bottom me-2 text-muted"></i>View</a>
-                                                                    </li>
-                                                                    <li><a class="dropdown-item edit-item-btn"
-                                                                           href="#showModal" data-bs-toggle="modal"><i
-                                                                                    class="ri-pencil-fill align-bottom me-2 text-muted"></i>
-                                                                            Edit</a></li>
-                                                                    <li><a class="dropdown-item remove-item-btn"
-                                                                           data-bs-toggle="modal"
-                                                                           href="#deleteRecordModal"><i
-                                                                                    class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
-                                                                            Delete</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </td>
-                                            </tr>
+                                            {% for contact in contacts %}
+                                                <tr>
+                                                    <th scope="row">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                   name="chk_child"
+                                                                   value="option1">
+                                                        </div>
+                                                    </th>
+                                                    <td class="id" style="display:none;"><a href="javascript:void(0);"
+                                                                                            class="fw-medium link-primary">#VZ001</a>
+                                                    </td>
+                                                    <td class="name">
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="flex-shrink-0"><img
+                                                                        src="{{ asset('assets/images/users/avatar-3.jpg') }}"
+                                                                        alt=""
+                                                                        class="avatar-xs rounded-circle"></div>
+                                                            <div class="flex-grow-1 ms-2 name">{{ contact.firstName }} {{ contact.lastName }}</div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="company_name">
+                                                        {% for companyName in contact.companies %}
+                                                            <span>{{ companyName }} </span>
+                                                        {% endfor %}
+                                                    </td>
+                                                    <td class="email_id">
+                                                        <a href="mailto:{{ contact.email }}">
+                                                            {{ contact.email }}
+                                                        </a>
+                                                    </td>
+                                                    <td class="phone">{{ contact.phone }}</td>
+                                                    <td class="lead_score">154</td>
+                                                    <td class="tags">
+                                                        {% for tag in contact.tags %}
+                                                            <span class="badge bg-primary-subtle text-primary">{{ tag }}</span>
+                                                        {% endfor %}
+                                                    </td>
+                                                    <td class="date">15 Dec, 2021 <small
+                                                                class="text-muted">08:58AM</small>
+                                                    </td>
+                                                    <td>
+                                                        <ul class="list-inline hstack gap-2 mb-0">
+                                                            <li class="list-inline-item edit" data-bs-toggle="tooltip"
+                                                                data-bs-trigger="hover" data-bs-placement="top"
+                                                                title="Call">
+                                                                <a href="javascript:void(0);"
+                                                                   class="text-muted d-inline-block">
+                                                                    <i class="ri-phone-line fs-16"></i>
+                                                                </a>
+                                                            </li>
+                                                            <li class="list-inline-item edit" data-bs-toggle="tooltip"
+                                                                data-bs-trigger="hover" data-bs-placement="top"
+                                                                title="Message">
+                                                                <a href="javascript:void(0);"
+                                                                   class="text-muted d-inline-block">
+                                                                    <i class="ri-question-answer-line fs-16"></i>
+                                                                </a>
+                                                            </li>
+                                                            <li class="list-inline-item">
+                                                                <div class="dropdown">
+                                                                    <button class="btn btn-soft-secondary btn-sm dropdown"
+                                                                            type="button" data-bs-toggle="dropdown"
+                                                                            aria-expanded="false">
+                                                                        <i class="ri-more-fill align-middle"></i>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                                        <li><a class="dropdown-item view-item-btn"
+                                                                               href="javascript:void(0);"><i
+                                                                                        class="ri-eye-fill align-bottom me-2 text-muted"></i>View</a>
+                                                                        </li>
+                                                                        <li><a class="dropdown-item edit-item-btn"
+                                                                               href="#showModal" data-bs-toggle="modal"><i
+                                                                                        class="ri-pencil-fill align-bottom me-2 text-muted"></i>
+                                                                                Edit</a></li>
+                                                                        <li><a class="dropdown-item remove-item-btn"
+                                                                               data-bs-toggle="modal"
+                                                                               href="#deleteRecordModal"><i
+                                                                                        class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
+                                                                                Delete</a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
                                             </tbody>
                                         </table>
                                         <div class="noresult" style="display: none">
@@ -242,7 +256,7 @@
                                                                     </div>
                                                                     <div class="avatar-lg p-1">
                                                                         <div class="avatar-title bg-light rounded-circle">
-                                                                            <img src="assets/images/users/user-dummy-img.jpg"
+                                                                            <img src="{{ asset('assets/images/users/user-dummy-img.jpg') }}"
                                                                                  id="customer-img"
                                                                                  class="avatar-md rounded-circle object-fit-cover"/>
                                                                         </div>

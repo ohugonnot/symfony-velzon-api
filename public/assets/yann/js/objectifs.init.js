@@ -40,7 +40,10 @@ function getChartColorsArray(chartId) {
 var linechartBasicColors = getChartColorsArray("line_chart_basic");
 if (linechartBasicColors) {
 
-    fetch('https://127.0.0.1:8000/api/objectifs.json')
+    const fetchUrl = window.apiRoot + "/objectifs.json"
+    console.log('fetchUrl', fetchUrl)
+
+    fetch(fetchUrl)
         .then((response) => response.json())
         .then((response) => {
             console.log(response)

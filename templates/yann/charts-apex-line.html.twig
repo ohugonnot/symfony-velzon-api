@@ -68,6 +68,13 @@
 
 {{ include('partials/vendor-scripts.html.twig') }}
 
+
+<!-- App js -->
+<script>window.apiRoot = "{{ api_root }}";
+    console.log("{{ api_root }}")</script>
+<script src="{{ asset('assets/js/app.js') }}"></script>
+
+
 <!-- apexcharts -->
 <script src={{ asset('assets/libs/apexcharts/apexcharts.min.js') }}></script>
 

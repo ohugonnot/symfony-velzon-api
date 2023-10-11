@@ -10,42 +10,39 @@
 
 <body>
 
-    <!-- Begin page -->
-    <div id="layout-wrapper">
+<!-- Begin page -->
+<div id="layout-wrapper">
 
-        {{ include('partials/menu.html.twig') }}
+    {{ include('partials/menu.html.twig') }}
 
-        <!-- ============================================================== -->
-        <!-- Start right Content here -->
-        <!-- ============================================================== -->
-        <div class="main-content">
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
 
-            <div class="page-content">
-                <div class="container-fluid">
+        <div class="page-content">
+            <div class="container-fluid">
 
-                    {{ include('partials/page-title.html.twig', {pagetitle: 'Pages', title: 'Starter'}) }}
+                {{ include('partials/page-title.html.twig', {pagetitle: 'Pages', title: 'Starter'}) }}
 
-                    {% block body %}{% endblock %}
-                </div>
-                <!-- container-fluid -->
+                {% block body %}{% endblock %}
             </div>
-            <!-- End Page-content -->
-
-            {{ include('partials/footer.html.twig') }}
+            <!-- container-fluid -->
         </div>
-        <!-- end main content-->
+        <!-- End Page-content -->
 
+        {{ include('partials/footer.html.twig') }}
     </div>
-    <!-- END layout-wrapper -->
+    <!-- end main content-->
+
+</div>
+<!-- END layout-wrapper -->
 
 
+{{ include('partials/customizer.html.twig') }}
 
-    {{ include('partials/customizer.html.twig') }}
+{{ include('partials/vendor-scripts.html.twig') }}
 
-    {{ include('partials/vendor-scripts.html.twig') }}
-
-    <!-- App js -->
-    <script src="{{ asset('assets/js/app.js') }}"></script>
 </body>
 
 </html>

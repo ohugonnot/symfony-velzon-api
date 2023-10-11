@@ -33,7 +33,7 @@ class VehicleType extends AbstractType
             ->add('employee')
             ->add('files', CollectionType::class, [
                 'entry_type' => File::class,
-                'mapped' => false
+                'mapped' => true
             ]);
     }
 

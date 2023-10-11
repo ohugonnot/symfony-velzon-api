@@ -1,0 +1,34 @@
+{% extends 'yann/base.html.twig' %}
+{% block body %}
+    {{ form_start(form) }}
+
+    <!-- Basic Input -->
+    <div class="">
+        {{ form_row(form.month) }}
+    </div>
+
+    <!-- Input Date -->
+    <div>
+        {{ form_row(form.year) }}
+    </div>
+
+
+    <div class="">
+        {{ form_row(form.service) }}
+    </div>
+    <div class="">
+        {{ form_row(form.objectif) }}
+    </div>
+
+    <div class="col-12 mt-4">
+        <button class="btn">{{ button_label|default('Save') }}</button>
+        {#            <button class="btn btn-primary" type="submit">Submit form</button> #}
+    </div>
+
+    {{ form_end(form) }}
+
+
+
+
+
+{% endblock %}

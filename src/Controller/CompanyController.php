@@ -22,6 +22,14 @@ class CompanyController extends AbstractController
         ]);
     }
 
+    #[Route('/test', name: 'app_company_indextest', methods: ['GET'])]
+    public function test(): Response
+    {
+        return $this->render('charts-apex-area.html.twig', [
+            'companies' => '',
+        ]);
+    }
+
     #[Route('/new', name: 'app_company_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {

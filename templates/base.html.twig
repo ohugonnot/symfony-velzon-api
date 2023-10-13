@@ -4,9 +4,11 @@
 
     {{ include('partials/title-meta.html.twig', {title: 'Starter'}) }}
 
-    {{ include('partials/head-css.html.twig') }}
-    {{ encore_entry_script_tags('app') }}
-    {{ encore_entry_link_tags('app') }}
+    {% block stylesheets %}
+        {{ include('partials/head-css.html.twig') }}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
 
 </head>
 
@@ -28,7 +30,7 @@
                 {{ include('partials/page-title.html.twig', {pagetitle: 'Pages', title: 'Starter'}) }}
 
                 {% block body %}
-                    <div {{ react_component('Hello') }}> blabla</div>
+
                 {% endblock %}
             </div>
             <!-- container-fluid -->
@@ -41,12 +43,11 @@
 
 </div>
 <!-- END layout-wrapper -->
-
-
 {{ include('partials/customizer.html.twig') }}
-
-{{ include('partials/vendor-scripts.html.twig') }}
-
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {{ include('partials/vendor-scripts.html.twig') }}
+{% endblock %}
 </body>
 
 </html>

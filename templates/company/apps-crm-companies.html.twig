@@ -1,4 +1,6 @@
 {{ include('partials/main.html.twig') }}
+{{ encore_entry_script_tags('app') }}
+{{ encore_entry_link_tags('app') }}
 
 <head>
 
@@ -88,6 +90,8 @@
                                     </div>
                                 </div>
                             </div>
+                            <div {{ react_component('Hello') }}>blabla</div>
+
                             <div class="card-body">
                                 <div>
                                     <div class="table-responsive table-card mb-3">
@@ -513,7 +517,7 @@
 <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
 
 {# <script src="{{ asset('assets/yann/js/companies.init.js') }}"></script> #}
-<script src="{{ asset('assets/yann/js/companies.js') }}"></script>
+{# <script src="{{ asset('assets/yann/js/companies.js') }}"></script> #}
 
 <!-- App js -->
 <script src="{{ asset('assets/js/app.js') }}"></script>

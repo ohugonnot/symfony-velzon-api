@@ -7,8 +7,9 @@ Contact: Themesbrand@gmail.com
 File: Main Js File
 */
 
+
 (function () {
-    ("use strict");
+    // ("use strict");
 
     /**
      *  global variables

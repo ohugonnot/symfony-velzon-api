@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Contact;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,8 +18,8 @@ class ContactType extends AbstractType
             ->add('email')
             ->add('phone')
             ->add('active')
-            ->add('tags')
-            ->add('companies');
+            ->add('tags', CollectionType::class)
+            ->add('companies', CollectionType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

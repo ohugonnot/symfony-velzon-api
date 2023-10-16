@@ -2,10 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\File;
 use App\Entity\Vehicle;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -31,10 +29,7 @@ class VehicleType extends AbstractType
             ->add('numAssurance')
             ->add('active')
             ->add('employee')
-            ->add('files', CollectionType::class, [
-                'entry_type' => File::class,
-                'mapped' => true
-            ]);
+            ->add('files');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

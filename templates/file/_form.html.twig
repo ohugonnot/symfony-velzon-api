@@ -1,4 +1,17 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
+{% extends 'yann/base.html.twig' %}
+{% block body %}
+
+    {{ form_start(form) }}
+    <div class="">
+        {{ form_row(form.url) }}
+    </div>
+    <div class="">
+        {{ form_row(form.category) }}
+    </div>
+    <div class="">
+        {{ form_row(form.starred) }}
+    </div>
     <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+    {{ form_end(form) }}
+
+{% endblock %}

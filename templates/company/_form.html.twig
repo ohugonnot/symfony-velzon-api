@@ -1,7 +1,79 @@
 {% extends 'yann/base.html.twig' %}
 {% block body %}
     {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+
+    <div class="">
+        {{ form_row(form.name) }}
+    </div>
+    <div class="">
+        {{ form_row(form.category) }}
+    </div>
+    <div class="">
+        {{ form_row(form.adress) }}
+    </div>
+    <div class="">
+        {{ form_row(form.city) }}
+    </div>
+    <div class="">
+        {{ form_row(form.country) }}
+    </div>
+    <div class="">
+        {{ form_row(form.email) }}
+    </div>
+    <div class="">
+        {{ form_row(form.phone) }}
+    </div>
+    <div class="">
+        {{ form_row(form.contacts) }}
+    </div>
+    <div class="">
+        {{ form_row(form.files) }}
+
+        <button type="button" class="add_item_link" data-collection-holder-class="files">Add a file</button>
+        <ul class="files"
+            data-index="{{ form.added_files|length > 0 ? form.files|last.vars.name + 1 : 0 }}"
+            data-prototype="{{ form_widget(form.added_files.vars.prototype)|e('html_attr') }}"
+        ></ul>
+
+        // Comment j'affiche les files existants
+
+    </div>
+    <div class="">
+        {{ form_row(form.active) }}
+    </div>
+
+    <div>
+        <button class="btn">{{ button_label|default('Save') }}</button>
+    </div>
+
     {{ form_end(form) }}
+
+    <script>
+        const addFormToCollection = (e) => {
+            const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+
+            const item = document.createElement('li');
+
+            item.innerHTML = collectionHolder
+                .dataset
+                .prototype
+                .replace(
+                    /__name__/g,
+                    collectionHolder.dataset.index
+                );
+
+            collectionHolder.appendChild(item);
+
+            collectionHolder.dataset.index++;
+        };
+
+        document
+            .querySelectorAll('.add_item_link')
+            .forEach(btn => {
+                btn.addEventListener("click", addFormToCollection)
+            });
+
+
+    </script>
 {% endblock %}

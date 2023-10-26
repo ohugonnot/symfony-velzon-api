@@ -15,7 +15,11 @@ class StoredFileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('url', FileType::class)
+            ->add('file', FileType::class, [
+                'label' => false,
+                'mapped' => true
+            ])
+//            ->add('file', FileType::class, ['label' => false])
             ->add('category', ChoiceType::class, [
                 'choices' => [
                     'Documents' => 'Documents',

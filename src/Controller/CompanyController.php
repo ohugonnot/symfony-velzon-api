@@ -3,13 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Company;
+use App\Entity\File;
 use App\Form\CompanyType;
 use App\Repository\CompanyRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use function PHPUnit\Framework\directoryExists;
 
 #[Route('/company')]
 class CompanyController extends AbstractController
@@ -31,13 +35,45 @@ class CompanyController extends AbstractController
     }
 
     #[Route('/new', name: 'app_company_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $company = new Company();
+        $files = new File();
         $form = $this->createForm(CompanyType::class, $company);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $files = $form->get('added_files');
+            /** @var File $file */
+            foreach ($files as $file) {
+                $file = $file->getData();
+                $uploadfile = $file->getFile();
+                if (!$uploadfile) {
+                    continue;
+                }
+
+                $fileSystem = new Filesystem();
+                $submittedFile = $uploadfile->getClientOriginalName();
+                $originalFilename = pathinfo($submittedFile, PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid('', false) . '.' . $uploadfile->guessExtension();
+                $rootDirectory = './assets/uploads';
+                $category = $file->getCategory();
+                $targetDirectory = $rootDirectory . $category;
+                $targetFile = $targetDirectory . '/' . $newFilename;
+
+                if (!directoryExists($targetDirectory)) {
+                    $fileSystem->mkdir($targetDirectory);
+                }
+
+                $fileSystem->copy($uploadfile, $targetFile);
+                $file->setUrl($targetFile);
+                $file->setFileName($newFilename);
+                $file->setFileSize($uploadfile->getSize());
+                $company->addFile($file);
+            }
+
             $entityManager->persist($company);
             $entityManager->flush();
 

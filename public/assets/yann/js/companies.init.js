@@ -34,14 +34,14 @@ var options = {
     valueNames: [
         "id",
         "name",
-        "owner",
-        "industry_type",
-        "star_value",
-        "location",
-        "employee",
-        "website",
-        "contact_email",
-        "since",
+        "category",
+        "adress",
+        "city",
+        "country",
+        "email",
+        "phone",
+        "contacts",
+        "active",
         {attr: "src", name: "image_src"}
     ],
     page: perPage,
@@ -85,25 +85,27 @@ var companyList = new List("companyList", options).on("updated", function (list)
 const xhttp = new XMLHttpRequest();
 xhttp.onload = function () {
     var json_records = JSON.parse(this.responseText);
+
     Array.from(json_records).forEach(function (raw) {
         companyList.add({
-            id: '<a href="javascript:void(0);" class="fw-medium link-primary">#VZ' + raw.id + "</a>",
+            // id: '<a href="javascript:void(0);" class="fw-medium link-primary">#VZ' + raw.id + "</a>",
+            id: raw.id,
             name: raw.name,
-            owner: raw.owner,
-            desc: raw.desc,
-            industry_type: raw.industry_type,
-            star_value: raw.star_value,
-            location: raw.location,
-            employee: raw.employee,
-            website: raw.website,
-            contact_email: raw.contact_email,
-            since: raw.since,
+            category: raw.category,
+            adress: raw.adress,
+            city: raw.city,
+            country: raw.country,
+            email: raw.email,
+            phone: raw.phone,
+            contacts: raw.contacts,
+            active: raw.active,
             image_src: raw.image_src
         });
+        console.log('companyList', companyList)
         companyList.sort('id', {order: "desc"});
         refreshCallbacks();
     });
-    companyList.remove("id", `<a href="javascript:void(0);" class="fw-medium link-primary">#VZ001</a>`);
+    // companyList.remove("id", `<a href="javascript:void(0);" class="fw-medium link-primary">#VZ001</a>`);
 }
 xhttp.open("GET", "/api/companies.json");
 xhttp.send();
@@ -127,18 +129,28 @@ document.querySelector("#company-logo-input").addEventListener("change", functio
 });
 
 var isValue = isCount.body.firstElementChild.innerHTML;
-
+// "id",
+//     "name",
+//     "category",
+//     "adress",
+//     "city",
+//     "country",
+//     "email",
+//     "phone",
+//     "contacts",
+//     "active",
+//     {attr: "src", name: "image_src"}
 var idField = document.getElementById("id-field"),
     companyNameField = document.getElementById("companyname-field"),
-    companyLogoImg = document.getElementById("companylogo-img"),
-    ownerField = document.getElementById("owner-field"),
-    industry_typeField = document.getElementById("industry_type-field"),
-    star_valueField = document.getElementById("star_value-field"),
-    locationField = document.getElementById("location-field"),
-    employeeField = document.getElementById("employee-field"),
-    websiteField = document.getElementById("website-field"),
-    contact_emailField = document.getElementById("contact_email-field"),
-    sinceField = document.getElementById("since-field"),
+    companyCategoryField = document.getElementById("companycategory-field"),
+    companyAdressField = document.getElementById("companyadress-field"),
+    companyCityField = document.getElementById("companycity-field"),
+    companyCountryField = document.getElementById("companycountry-field"),
+    companyEmailField = document.getElementById("companyemail-field"),
+    companyPhoneField = document.getElementById("companyphone-field"),
+    companyContactsField = document.getElementById("companycontacts-field"),
+    companyActiveField = document.getElementById("companyactive-field"),
+    companyImgSrcField = document.getElementById("companyimgsrc-field"),
 
     addBtn = document.getElementById("add-btn"),
     editBtn = document.getElementById("edit-btn"),
@@ -187,25 +199,26 @@ Array.prototype.slice.call(forms).forEach(function (form) {
             event.preventDefault();
             if (
                 companyNameField.value !== "" &&
-                ownerField.value !== "" &&
-                industry_typeField.value !== "" &&
-                star_valueField.value !== "" &&
-                locationField.value !== "" &&
-                employeeField.value !== "" &&
-                websiteField.value !== "" &&
-                contact_emailField.value !== "" &&
+                companyCategoryField.value !== "" &&
+                companyAdressField.value !== "" &&
+                companyCityField.value !== "" &&
+                companyCountryField.value !== "" &&
+                companyEmailField.value !== "" &&
+                companyPhoneField.value !== "" &&
+                companyContactsField.value !== "" &&
+                companyActiveField.value !== "" &&
                 sinceField.value !== "" && !editlist) {
                 companyList.add({
                     id: '<a href="javascript:void(0);" class="fw-medium link-primary">#VZ' + count + "</a>",
                     image_src: companyLogoImg.src,
                     name: companyNameField.value,
-                    owner: ownerField.value,
-                    industry_type: industry_typeField.value,
-                    star_value: star_valueField.value,
-                    location: locationField.value,
-                    employee: employeeField.value,
-                    website: websiteField.value,
-                    contact_email: contact_emailField.value,
+                    owner: companyCategoryField.value,
+                    industry_type: companyAdressField.value,
+                    star_value: companyCityField.value,
+                    location: companyCountryField.value,
+                    employee: companyEmailField.value,
+                    website: companyPhoneField.value,
+                    contact_email: companyContactsField.value,
                     since: sinceField.value
 
                 });
@@ -224,13 +237,14 @@ Array.prototype.slice.call(forms).forEach(function (form) {
                 });
             } else if (
                 companyNameField.value !== "" &&
-                ownerField.value !== "" &&
-                industry_typeField.value !== "" &&
-                star_valueField.value !== "" &&
-                locationField.value !== "" &&
-                employeeField.value !== "" &&
-                websiteField.value !== "" &&
-                contact_emailField.value !== "" &&
+                companyCategoryField.value !== "" &&
+                companyAdressField.value !== "" &&
+                companyCityField.value !== "" &&
+                companyCountryField.value !== "" &&
+                companyEmailField.value !== "" &&
+                companyPhoneField.value !== "" &&
+                companyContactsField.value !== "" &&
+                companyActiveField.value !== "" &&
                 sinceField.value !== "" && editlist) {
                 var editValues = companyList.get({
                     id: idField.value,
@@ -243,13 +257,13 @@ Array.prototype.slice.call(forms).forEach(function (form) {
                             id: `<a href="javascript:void(0);" class="fw-medium link-primary">${idField.value}</a>`,
                             image_src: companyLogoImg.src,
                             name: companyNameField.value,
-                            owner: ownerField.value,
-                            industry_type: industry_typeField.value,
-                            star_value: star_valueField.value,
-                            location: locationField.value,
-                            employee: employeeField.value,
-                            website: websiteField.value,
-                            contact_email: contact_emailField.value,
+                            owner: companyCategoryField.value,
+                            industry_type: companyAdressField.value,
+                            star_value: companyCityField.value,
+                            location: companyCountryField.value,
+                            employee: companyEmailField.value,
+                            website: companyPhoneField.value,
+                            contact_email: companyContactsField.value,
                             since: sinceField.value
                         });
                     }
@@ -334,13 +348,14 @@ function refreshCallbacks() {
                         idField.value = selectedid;
                         companyLogoImg.src = x._values.image_src;
                         companyNameField.value = x._values.name;
-                        ownerField.value = x._values.owner;
-                        industry_typeField.value = x._values.industry_type;
-                        star_valueField.value = x._values.star_value;
-                        locationField.value = x._values.location;
-                        employeeField.value = x._values.employee;
-                        websiteField.value = x._values.website;
-                        contact_emailField.value = x._values.contact_email;
+                        companyCategoryField.value = x._values.category;
+                        companyAdressField.value = x._values.adress;
+                        companyCityField.value = x._values.city;
+                        companyCountryField.value = x._values.country;
+                        companyEmailField.value = x._values.email;
+                        companyPhoneField.value = x._values.phone;
+                        companyContactsField.value = x._values.contacts;
+                        companyActiveField.value = x._values.active;
                         sinceField.value = x._values.since;
                     }
                 });
@@ -355,89 +370,89 @@ function refreshCallbacks() {
                 id: itemId,
             });
 
-            Array.from(itemValues).forEach(function (x) {
-                console.log(x)
-                isid = new DOMParser().parseFromString(x._values.id, "text/html");
-                var selectedid = isid.body.firstElementChild.innerHTML;
-                if (selectedid == itemId) {
-                    var codeBlock = `
-                        <div class="card-body text-center">
-                            <div class="position-relative d-inline-block">
-                                <div class="avatar-md">
-                                    <div class="avatar-title bg-light rounded-circle">
-                                        <img src="${x._values.image_src}" alt="" class="avatar-sm rounded-circle object-fit-cover">
-                                    </div>
-                                </div>
-                            </div>
-                            <h5 class="mt-3 mb-1">${x.name}</h5>
-                            <p class="text-muted">${x._values.owner}</p>
-
-                            <ul class="list-inline mb-0">
-                                <li class="list-inline-item avatar-xs">
-                                    <a href="javascript:void(0);"
-                                        class="avatar-title bg-success-subtle text-success fs-15 rounded">
-                                        <i class="ri-global-line"></i>
-                                    </a>
-                                </li>
-                                <li class="list-inline-item avatar-xs">
-                                    <a href="javascript:void(0);"
-                                        class="avatar-title bg-danger-subtle text-danger fs-15 rounded">
-                                        <i class="ri-mail-line"></i>
-                                    </a>
-                                </li>
-                                <li class="list-inline-item avatar-xs">
-                                    <a href="javascript:void(0);"
-                                        class="avatar-title bg-warning-subtle text-warning fs-15 rounded">
-                                        <i class="ri-question-answer-line"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="text-muted text-uppercase fw-semibold mb-3">Information</h6>
-                            <p class="text-muted mb-4">${x._values.desc}</p>
-                            <div class="table-responsive table-card">
-                                <table class="table table-borderless mb-0">
-                                    <tbody>
-                                        <tr>
-                                            <td class="fw-medium" scope="row">Industry Type</td>
-                                            <td>${x.category}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="fw-medium" scope="row">Location</td>
-                                            <td>${x.name}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="fw-medium" scope="row">Employee</td>
-                                            <td>${x._values.employee}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="fw-medium" scope="row">Rating</td>
-                                            <td>${x._values.star_value} <i class="ri-star-fill text-warning align-bottom"></i></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="fw-medium" scope="row">Website</td>
-                                            <td>
-                                                <a href="javascript:void(0);"
-                                                    class="link-primary text-decoration-underline">${x.phone}</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="fw-medium" scope="row">Contact Email</td>
-                                            <td>${x.email}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="fw-medium" scope="row">Since</td>
-                                            <td>${x._values.since}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    `;
-                    document.getElementById('company-view-detail').innerHTML = codeBlock;
-                }
-            });
+            // Array.from(itemValues).forEach(function (x) {
+            //     console.log(x)
+            //     isid = new DOMParser().parseFromString(x._values.id, "text/html");
+            //     var selectedid = isid.body.firstElementChild.innerHTML;
+            //     if (selectedid == itemId) {
+            //         var codeBlock = `
+            //             <div class="card-body text-center">
+            //                 <div class="position-relative d-inline-block">
+            //                     <div class="avatar-md">
+            //                         <div class="avatar-title bg-light rounded-circle">
+            //                             <img src="${x._values.image_src}" alt="" class="avatar-sm rounded-circle object-fit-cover">
+            //                         </div>
+            //                     </div>
+            //                 </div>
+            //                 <h5 class="mt-3 mb-1">${x.name}</h5>
+            //                 <p class="text-muted">${x._values.owner}</p>
+            //
+            //                 <ul class="list-inline mb-0">
+            //                     <li class="list-inline-item avatar-xs">
+            //                         <a href="javascript:void(0);"
+            //                             class="avatar-title bg-success-subtle text-success fs-15 rounded">
+            //                             <i class="ri-global-line"></i>
+            //                         </a>
+            //                     </li>
+            //                     <li class="list-inline-item avatar-xs">
+            //                         <a href="javascript:void(0);"
+            //                             class="avatar-title bg-danger-subtle text-danger fs-15 rounded">
+            //                             <i class="ri-mail-line"></i>
+            //                         </a>
+            //                     </li>
+            //                     <li class="list-inline-item avatar-xs">
+            //                         <a href="javascript:void(0);"
+            //                             class="avatar-title bg-warning-subtle text-warning fs-15 rounded">
+            //                             <i class="ri-question-answer-line"></i>
+            //                         </a>
+            //                     </li>
+            //                 </ul>
+            //             </div>
+            //             <div class="card-body">
+            //                 <h6 class="text-muted text-uppercase fw-semibold mb-3">Information</h6>
+            //                 <p class="text-muted mb-4">${x._values.desc}</p>
+            //                 <div class="table-responsive table-card">
+            //                     <table class="table table-borderless mb-0">
+            //                         <tbody>
+            //                             <tr>
+            //                                 <td class="fw-medium" scope="row">Industry Type</td>
+            //                                 <td>${x.category}</td>
+            //                             </tr>
+            //                             <tr>
+            //                                 <td class="fw-medium" scope="row">Location</td>
+            //                                 <td>${x.name}</td>
+            //                             </tr>
+            //                             <tr>
+            //                                 <td class="fw-medium" scope="row">Employee</td>
+            //                                 <td>${x._values.employee}</td>
+            //                             </tr>
+            //                             <tr>
+            //                                 <td class="fw-medium" scope="row">Rating</td>
+            //                                 <td>${x._values.star_value} <i class="ri-star-fill text-warning align-bottom"></i></td>
+            //                             </tr>
+            //                             <tr>
+            //                                 <td class="fw-medium" scope="row">Website</td>
+            //                                 <td>
+            //                                     <a href="javascript:void(0);"
+            //                                         class="link-primary text-decoration-underline">${x.phone}</a>
+            //                                 </td>
+            //                             </tr>
+            //                             <tr>
+            //                                 <td class="fw-medium" scope="row">Contact Email</td>
+            //                                 <td>${x.email}</td>
+            //                             </tr>
+            //                             <tr>
+            //                                 <td class="fw-medium" scope="row">Since</td>
+            //                                 <td>${x._values.since}</td>
+            //                             </tr>
+            //                         </tbody>
+            //                     </table>
+            //                 </div>
+            //             </div>
+            //         `;
+            //         document.getElementById('company-view-detail').innerHTML = codeBlock;
+            //     }
+            // });
         });
     });
 }
@@ -445,13 +460,15 @@ function refreshCallbacks() {
 function clearFields() {
     companyLogoImg.src = "assets/images/users/multi-user.jpg";
     companyNameField.value = "";
-    ownerField.value = "";
-    industry_typeField.value = "";
-    star_valueField.value = "";
-    locationField.value = "";
-    employeeField.value = "";
-    websiteField.value = "";
-    contact_emailField.value = "";
+    companyCategoryField.value = "";
+    companyAdressField.value = "";
+    companyCityField.value = "";
+    companyCountryField.value = "";
+    companyEmailField.value = "";
+    companyPhoneField.value = "";
+    companyContactsField.value = "";
+    companyActiveField
+        .value = "";
     sinceField.value = "";
 }
 

@@ -78,39 +78,31 @@ class FileController extends AbstractController
         $form = $this->createForm(StoredFileType::class, $file);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             //init of filesystem
             $fileSystem = new Filesystem();
-
-            //we handle uploaded file name and copy it to uploads directory
-            //
-            //
-            //renaming
+//            $submittedFile = $file->getUrl();
             $submittedFile = $form->get('url')->getData();
+//            dd($submittedFile);
+
+//            dd($form);
+//            dd($request, $submittedFile, $form);
             $originalFilename = pathinfo($submittedFile->getClientOriginalName(), PATHINFO_FILENAME);
             $safeFilename = $slugger->slug($originalFilename);
             $newFilename = $safeFilename . '-' . uniqid('', false) . '.' . $submittedFile->guessExtension();
-//            dd($safeFilename, $originalFilename, $newFilename);
-
-
-            //if it doesn't exists, we create the directory
-            //named as file->category
-
             $rootDirectory = './assets/uploads';
             $category = $file->getCategory();
             $targetDirectory = $rootDirectory . $category;
             $targetFile = $targetDirectory . '/' . $newFilename;
 
+
             if (!directoryExists($targetDirectory)) {
                 $fileSystem->mkdir($targetDirectory);
             }
 
-            //now we can copy the new file in the right folder
-            $fileSystem->copy($form->get('url')->getData(), $targetFile);
-
-
-            //setting new file url
+            $fileSystem->copy($submittedFile, $targetFile);
             $file->setUrl($targetFile);
             $file->setFileName($newFilename);
 
@@ -125,6 +117,7 @@ class FileController extends AbstractController
             }
 
             $fileRepository->save($file, true);
+
 
             return $this->redirectToRoute('app_file_index', [], Response::HTTP_SEE_OTHER);
         }

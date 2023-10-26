@@ -44,9 +44,13 @@ class Company
     #[ORM\Column]
     private ?bool $active = null;
 
+    #[ORM\ManyToMany(targetEntity: File::class, inversedBy: 'companies', cascade: ['persist'])]
+    private Collection $files;
+
     public function __construct()
     {
         $this->contacts = new ArrayCollection();
+        $this->files = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -177,5 +181,29 @@ class Company
     public function __toString(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection<int, File>
+     */
+    public function getFiles(): Collection
+    {
+        return $this->files;
+    }
+
+    public function addFile(File $file): static
+    {
+        if (!$this->files->contains($file)) {
+            $this->files->add($file);
+        }
+
+        return $this;
+    }
+
+    public function removeFile(File $file): static
+    {
+        $this->files->removeElement($file);
+
+        return $this;
     }
 }

@@ -73,5 +73,5 @@ fetch('/api/companies.json')
     .then((response) => response.json())
     .then((companies) => {
         console.log(companies)
-        companies.map((company) => tableBody.append(codeBlock))
+        // companies.map((company) => tableBody.append(codeBlock))
     })

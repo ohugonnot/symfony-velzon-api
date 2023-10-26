@@ -7,6 +7,7 @@ use App\Repository\FileRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[ORM\Entity(repositoryClass: FileRepository::class)]
 #[ApiResource(
@@ -26,6 +27,8 @@ class File
     #[ORM\Column(length: 255)]
     private ?string $url = null;
 
+    private ?UploadedFile $file = null;
+
     #[ORM\Column(length: 255)]
     private ?string $category = null;
 
@@ -44,10 +47,14 @@ class File
     #[ORM\ManyToMany(targetEntity: Employee::class, mappedBy: 'files')]
     private Collection $employees;
 
+    #[ORM\ManyToMany(targetEntity: Company::class, mappedBy: 'files')]
+    private Collection $companies;
+
     public function __construct()
     {
         $this->vehicles = new ArrayCollection();
         $this->employees = new ArrayCollection();
+        $this->companies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -60,7 +67,7 @@ class File
         return $this->url;
     }
 
-    public function setUrl(string $url): static
+    public function setUrl($url): static
     {
         $this->url = $url;
 
@@ -171,7 +178,45 @@ class File
 
     public function __toString(): string
     {
-        return $this->fileName;
+        return $this->fileName ?? 'je sais pas';
+    }
+
+    /**
+     * @return Collection<int, Company>
+     */
+    public function getCompanies(): Collection
+    {
+        return $this->companies;
+    }
+
+    public function addCompany(Company $company): static
+    {
+        if (!$this->companies->contains($company)) {
+            $this->companies->add($company);
+            $company->addFile($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompany(Company $company): static
+    {
+        if ($this->companies->removeElement($company)) {
+            $company->removeFile($this);
+        }
+
+        return $this;
+    }
+
+    public function getFile(): ?UploadedFile
+    {
+        return $this->file;
+    }
+
+    public function setFile(?UploadedFile $file): self
+    {
+        $this->file = $file;
+        return $this;
     }
 
 

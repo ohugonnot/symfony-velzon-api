@@ -59,7 +59,13 @@ class ContactController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $tagForm = $form->getData();
             $submittedTags = $tagForm->getTags();
-//            dd($submittedTags);
+            if ($submittedTags) {
+//                dd($submittedTags);
+                foreach ($submittedTags as $tag) {
+                    $contact->addTag($tag);
+
+                }
+            }
             $entityManager->flush();
 
             return $this->redirectToRoute('app_contact_index', [], Response::HTTP_SEE_OTHER);

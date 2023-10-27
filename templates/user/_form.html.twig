@@ -1,6 +1,17 @@
-{% extends 'yann/base.html.twig' %}
+{# {% extends 'yann/base.html.twig' %} #}
 {% block body %}
     {{ form_start(form) }}
+
+    <!-- Basic Input -->
+    <div class="">
+        {{ form_row(form.username) }}
+    </div>
+    <div class="">
+        {#        {{ form_row(form.roles) }} #}
+    </div>
+    <div class="">
+        {{ form_row(form.password) }}
+    </div>
     <div class="">
         {{ form_row(form.firstName) }}
     </div>
@@ -8,17 +19,15 @@
         {{ form_row(form.lastName) }}
     </div>
     <div class="">
-        {{ form_row(form.email) }}
-    </div>
-    <div class="">
         {{ form_row(form.phone) }}
     </div>
     <div class="">
-        {{ form_row(form.tags) }}
+        {{ form_row(form.email) }}
     </div>
     <div class="">
         {{ form_row(form.active) }}
     </div>
+
     <button class="btn">{{ button_label|default('Save') }}</button>
     {{ form_end(form) }}
 {% endblock %}

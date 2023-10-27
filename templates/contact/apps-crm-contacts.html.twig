@@ -102,11 +102,9 @@
                                                 </th>
                                                 <th class="sort" data-sort="name" scope="col">Name</th>
                                                 <th class="sort" data-sort="company_name" scope="col">Company</th>
-                                                <th class="sort" data-sort="email_id" scope="col">Email ID</th>
-                                                <th class="sort" data-sort="phone" scope="col">Phone No</th>
-                                                <th class="sort" data-sort="lead_score" scope="col">Lead Score</th>
+                                                <th class="sort" data-sort="email_id" scope="col">Email</th>
+                                                <th class="sort" data-sort="phone" scope="col">Phone</th>
                                                 <th class="sort" data-sort="tags" scope="col">Tags</th>
-                                                <th class="sort" data-sort="date" scope="col">Last Contacted</th>
                                                 <th scope="col">Action</th>
                                             </tr>
                                             </thead>
@@ -143,14 +141,10 @@
                                                         </a>
                                                     </td>
                                                     <td class="phone">{{ contact.phone }}</td>
-                                                    <td class="lead_score">154</td>
                                                     <td class="tags">
                                                         {% for tag in contact.tags %}
                                                             <span class="badge bg-primary-subtle text-primary">{{ tag }}</span>
                                                         {% endfor %}
-                                                    </td>
-                                                    <td class="date">15 Dec, 2021 <small
-                                                                class="text-muted">08:58AM</small>
                                                     </td>
                                                     <td>
                                                         <ul class="list-inline hstack gap-2 mb-0">

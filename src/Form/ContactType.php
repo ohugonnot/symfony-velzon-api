@@ -3,6 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Contact;
+use App\Entity\Tag;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,7 +22,25 @@ class ContactType extends AbstractType
             ->add('email')
             ->add('phone')
             ->add('active')
-            ->add('tags', CollectionType::class)
+            ->add('tags', EntityType::class, [
+                'class' => Tag::class,
+                'required' => false,
+                'query_builder' => function (EntityRepository $er): QueryBuilder {
+                    return $er->createQueryBuilder('t')
+                        ->andWhere("t.active = true");
+                },
+                'choice_label' => 'name',
+                'multiple' => true
+            ])
+//            ->add('newtags', CollectionType::class, [
+//                'mapped' => false,
+//                'required' => false,
+//                'entry_type' => TagType::class,
+//                'allow_add' => true,
+//                'allow_delete' => true,
+//                'delete_empty' => true,
+//                'by_reference' => false
+//            ])
             ->add('companies', CollectionType::class);
     }
 

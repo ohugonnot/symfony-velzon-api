@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\ObjectifRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,9 +16,11 @@ class HomeController extends AbstractController
     }
 
     #[Route('/', name: 'home')]
-    public function index(): Response
+    public function index(ObjectifRepository $objectifRepository): Response
     {
-        return $this->render('index.html.twig');
+        return $this->render('yann/charts-apex-line.html.twig', [
+            'objectifs' => $objectifRepository->findAll(),
+        ]);
     }
 
     #[Route('/{path}', priority: -1)]

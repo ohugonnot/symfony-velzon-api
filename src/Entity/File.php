@@ -50,11 +50,15 @@ class File
     #[ORM\ManyToMany(targetEntity: Company::class, mappedBy: 'files')]
     private Collection $companies;
 
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'privateFiles')]
+    private Collection $privateUsers;
+
     public function __construct()
     {
         $this->vehicles = new ArrayCollection();
         $this->employees = new ArrayCollection();
         $this->companies = new ArrayCollection();
+        $this->privateUsers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -216,6 +220,33 @@ class File
     public function setFile(?UploadedFile $file): self
     {
         $this->file = $file;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getPrivateUsers(): Collection
+    {
+        return $this->privateUsers;
+    }
+
+    public function addPrivateUser(User $privateUser): static
+    {
+        if (!$this->privateUsers->contains($privateUser)) {
+            $this->privateUsers->add($privateUser);
+            $privateUser->addPrivateFile($this);
+        }
+
+        return $this;
+    }
+
+    public function removePrivateUser(User $privateUser): static
+    {
+        if ($this->privateUsers->removeElement($privateUser)) {
+            $privateUser->removePrivateFile($this);
+        }
+
         return $this;
     }
 

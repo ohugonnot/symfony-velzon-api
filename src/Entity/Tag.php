@@ -23,7 +23,7 @@ class Tag
     #[ORM\Column]
     private ?bool $active = null;
 
-    #[ORM\ManyToMany(targetEntity: Contact::class, mappedBy: 'tags')]
+    #[ORM\ManyToMany(targetEntity: Contact::class, mappedBy: 'tags', cascade: ['persist'])]
     private Collection $contacts;
 
     public function __construct()

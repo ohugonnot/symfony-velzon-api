@@ -5,12 +5,11 @@ namespace App\Form;
 use App\Entity\File;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class StoredFileType extends AbstractType
+class NoCategoryFileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -18,17 +17,6 @@ class StoredFileType extends AbstractType
             ->add('file', FileType::class, [
                 'label' => false,
                 'mapped' => true
-            ])
-//            ->add('file', FileType::class, ['label' => false])
-            ->add('category', ChoiceType::class, [
-                'choices' => [
-                    'Documents' => 'Documents',
-                    'Media' => 'Media',
-                    'Recent' => 'Recent',
-                    'Important' => 'Important',
-                    'Vehicles' => 'Vehicles',
-                    'Deleted' => 'Deleted'
-                ]
             ])
             ->add('starred', CheckboxType::class, [
                 'label' => 'Favoris o/n',

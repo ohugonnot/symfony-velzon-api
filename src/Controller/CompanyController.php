@@ -60,7 +60,7 @@ class CompanyController extends AbstractController
                 $newFilename = $safeFilename . '-' . uniqid('', false) . '.' . $uploadfile->guessExtension();
                 $rootDirectory = './assets/uploads';
                 $category = $file->getCategory();
-                $targetDirectory = $rootDirectory . $category;
+                $targetDirectory = $rootDirectory . "/" . $category;
                 $targetFile = $targetDirectory . '/' . $newFilename;
 
                 if (!directoryExists($targetDirectory)) {

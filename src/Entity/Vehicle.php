@@ -42,7 +42,7 @@ class Vehicle
     #[ORM\ManyToOne(inversedBy: 'vehicles')]
     private ?Employee $employee = null;
 
-    #[ORM\ManyToMany(targetEntity: File::class, inversedBy: 'vehicles')]
+    #[ORM\ManyToMany(targetEntity: File::class, inversedBy: 'vehicles', cascade: ['persist'])]
     private Collection $files;
 
     public function __construct()

@@ -2,15 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\File;
 use App\Entity\Vehicle;
 use App\Form\VehicleType;
 use App\Repository\EmployeeRepository;
 use App\Repository\VehiclesRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use function PHPUnit\Framework\directoryExists;
 
 #[Route('/vehicle')]
 class VehicleController extends AbstractController
@@ -32,7 +36,7 @@ class VehicleController extends AbstractController
     }
 
     #[Route('/new', name: 'app_vehicle_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, VehiclesRepository $vehiclesRepository, EmployeeRepository $employeeRepo): Response
+    public function new(Request $request, VehiclesRepository $vehiclesRepository, EmployeeRepository $employeeRepo, SluggerInterface $slugger, EntityManagerInterface $entityManager): Response
     {
         $vehicle = new Vehicle();
         $form = $this->createForm(VehicleType::class, $vehicle);
@@ -43,7 +47,43 @@ class VehicleController extends AbstractController
 //        }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $vehiclesRepository->save($vehicle, true);
+//            dd($form);
+            $files = $form->get('uploaded_files');
+            /** @var File $file */
+            foreach ($files as $file) {
+                $file = $file->getData();
+                $uploadfile = $file->getFile();
+//                dd($uploadfile);
+                if (!$uploadfile) {
+                    continue;
+                }
+
+                $fileSystem = new Filesystem();
+                $submittedFile = $uploadfile->getClientOriginalName();
+                $originalFilename = pathinfo($submittedFile, PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid('', false) . '.' . $uploadfile->guessExtension();
+                $rootDirectory = './assets/uploads';
+                $category = 'Vehicles';
+                $targetDirectory = $rootDirectory . "/" . $category;
+                $targetFile = $targetDirectory . '/' . $newFilename;
+
+                if (!directoryExists($targetDirectory)) {
+                    $fileSystem->mkdir($targetDirectory);
+                }
+
+                $fileSystem->copy($uploadfile, $targetFile);
+                $file->setUrl($targetFile);
+                $file->setFileName($newFilename);
+                $file->setCategory('Vehicles');
+                $file->setFileSize($uploadfile->getSize());
+                $vehicle->addFile($file);
+//                dd($vehicle);
+            }
+
+            $entityManager->persist($vehicle);
+            $entityManager->flush();
+//            $vehiclesRepository->save($vehicle, true);
 
             return $this->redirectToRoute('app_vehicle_index', [], Response::HTTP_SEE_OTHER);
         }

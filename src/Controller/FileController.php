@@ -84,7 +84,7 @@ class FileController extends AbstractController
             //init of filesystem
             $fileSystem = new Filesystem();
 //            $submittedFile = $file->getUrl();
-            $submittedFile = $form->get('url')->getData();
+            $submittedFile = $form->get('file')->getData();
 //            dd($submittedFile);
 
 //            dd($form);
@@ -94,7 +94,7 @@ class FileController extends AbstractController
             $newFilename = $safeFilename . '-' . uniqid('', false) . '.' . $submittedFile->guessExtension();
             $rootDirectory = './assets/uploads';
             $category = $file->getCategory();
-            $targetDirectory = $rootDirectory . $category;
+            $targetDirectory = $rootDirectory . "/" . $category;
             $targetFile = $targetDirectory . '/' . $newFilename;
 
 

@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -35,13 +36,25 @@ class VehicleType extends AbstractType
             ->add('employee')
             ->add('files', EntityType::class, [
                 'class' => File::class,
+                'required' => false,
                 'query_builder' => function (EntityRepository $er): QueryBuilder {
                     return $er->createQueryBuilder('f')
-                        ->andWhere('f.categories like');
+                        ->andWhere("f.category like 'Vehicles'");
                 },
-                'choice_label' => 'url',
+                'choice_label' => 'fileName',
                 'multiple' => true,
+            ])
+            ->add('uploaded_files', CollectionType::class, [
+                'mapped' => false,
+                'required' => false,
+                'label' => 'Upload files',
+                'entry_type' => NoCategoryFileType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'delete_empty' => true,
+                'by_reference' => false,
             ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

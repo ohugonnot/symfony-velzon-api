@@ -2,10 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\File;
-use App\Repository\FileRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
@@ -35,9 +32,9 @@ class HomeController extends AbstractController
         throw $this->createNotFoundException();
     }
 
-    #[Route('/assets/uploads/Documents/{name}', name: 'app_file_delete', methods: ['GET'])]
-    public function downloadfile(Request $request): Response
-    {
-        dd("ici");
-    }
+//    #[Route('/assets/uploads/Documents/{name}', name: 'app_file_delete', methods: ['GET'])]
+//    public function downloadfile(Request $request): Response
+//    {
+//        dd("ici");
+//    }
 }

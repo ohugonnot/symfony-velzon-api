@@ -33,6 +33,319 @@
             </div>
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span data-key="t-menu">Menu</span></li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{ path('app_home_root', {'path': 'x'}) }}"
+                       data-bs-toggle="collapse" role="button"
+                       aria-expanded="false" aria-controls="dumatosAccueil">
+                        <i class="ri-dashboard-2-line"></i> <span>Accueil</span>
+                    </a>
+                </li> <!-- end Accueil Menu -->
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#dumatosActus" data-bs-toggle="collapse" role="button"
+                       aria-expanded="false" aria-controls="dumatosActus">
+                        <i class="ri-dashboard-2-line"></i> <span>Actualités</span>
+                    </a>
+                </li> <!-- end Actus Menu -->
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#dumatosMateriels" data-bs-toggle="collapse" role="button"
+                       aria-expanded="false" aria-controls="dumatosMateriels">
+                        <i class="ri-dashboard-2-line"></i> <span>Matériels</span>
+                    </a>
+                </li> <!-- end Materiels Menu -->
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#dumatosApproAchats" data-bs-toggle="collapse" role="button"
+                       aria-expanded="false" aria-controls="dumatosApproAchats">
+                        <i class="ri-dashboard-2-line"></i> <span>Appro / Achats</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="dumatosApproAchats">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ path('app_company_index') }}" class="nav-link" data-key="t-fournisseurs">
+                                    Fournisseurs </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosDocsAppros" class="nav-link" data-key="t-docs-appro">
+                                    Docs vierges </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                        </ul>
+                    </div>
+                </li> <!-- end Appros Menu -->
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#dumatosCommerceLog" data-bs-toggle="collapse" role="button"
+                       aria-expanded="false" aria-controls="dumatosCommerceLog">
+                        <i class="ri-dashboard-2-line"></i> <span>Commerce / logistique</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="dumatosCommerceLog">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="#dumatosCahierRefus" class="nav-link" data-key="t-cahier-refus">
+                                    Cahier de refus </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosCGL" class="nav-link" data-key="t-cgl">
+                                    CGL </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosObjectifsDetails" class="nav-link" data-key="t-objectifs-details">
+                                    Objectifs détails </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosSimulFinancement" class="nav-link" data-key="t-simul-financement">
+                                    Simulateur financement </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosVeilleConcu" class="nav-link" data-key="t-veille-concu">
+                                    Veille concurentielle </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosTarifsLogistique" class="nav-link" data-key="t-tarifs-logistique">
+                                    Tarifs logistique </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosSuiviLogistique" class="nav-link" data-key="t-suivi-logistique">
+                                    Suivi logistique </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosDocsLogistique" class="nav-link" data-key="t-docs-logistique">
+                                    Docs logistique </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                        </ul>
+                    </div>
+                </li> <!-- end Commerce logistique Menu -->
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#dumatosCommIntExt" data-bs-toggle="collapse" role="button"
+                       aria-expanded="false" aria-controls="dumatosCommIntExt">
+                        <i class="ri-dashboard-2-line"></i> <span>Communication</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="dumatosCommIntExt">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="#dumatosBoiteIdees" class="nav-link" data-key="t-boite-idees">
+                                    Boite à idées </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosPresentationGroupe" class="nav-link" data-key="t-presentation-groupe">
+                                    Présentation du groupe </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosProceduresQualite" class="nav-link" data-key="t-procedures-qualite">
+                                    Procédures qualité </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosSuiviHarmony" class="nav-link" data-key="t-suivi-harmony">
+                                    Suivi Harmony </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosReunions" class="nav-link" data-key="t-reunions">
+                                    Réunions </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosCommunicationArchives" class="nav-link"
+                                   data-key="t-communication-archives">
+                                    Archives comm. </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosCommunicationOutils" class="nav-link"
+                                   data-key="t-communication-outils">
+                                    Outils comm. </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosCharteGraphique" class="nav-link" data-key="t-charte-graphique">
+                                    Charte graphique </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                        </ul>
+                    </div>
+                </li> <!-- end Communication Menu -->
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#dumatosAdministratif" data-bs-toggle="collapse" role="button"
+                       aria-expanded="false" aria-controls="dumatosAdministratif">
+                        <i class="ri-dashboard-2-line"></i> <span>Administratif / RH</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="dumatosAdministratif">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="#dumatosContratsSouscrits" class="nav-link" data-key="t-contrats-souscrits">
+                                    Contrats souscrits </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosPapiersVehicules" class="nav-link" data-key="t-papiers-vehicules">
+                                    Papiers véhicules </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosKbis" class="nav-link" data-key="t-kbis">
+                                    K-Bis </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosRib" class="nav-link" data-key="t-rib">
+                                    RIB </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosAgenda" class="nav-link" data-key="t-agenda">
+                                    Agenda </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosConventionCollective" class="nav-link"
+                                   data-key="t-convention-colective">
+                                    Convention collective </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosOrganigramme" class="nav-link" data-key="t-organigramme">
+                                    Organigramme </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosTrombinoscope" class="nav-link" data-key="t-trombinoscope">
+                                    Trombinoscope </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosSuiviVetements" class="nav-link" data-key="t-suivi-vetements">
+                                    Suivi vêtements </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosSuiviLogistique" class="nav-link" data-key="t-suivi-logistique">
+                                    Docs RH</a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                        </ul>
+                    </div>
+                </li> <!-- end Administratif RH Menu -->
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#dumatosDocsVierges" data-bs-toggle="collapse" role="button"
+                       aria-expanded="false" aria-controls="dumatosDocsVierges">
+                        <i class="ri-dashboard-2-line"></i> <span>Documents vierges</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="dumatosDocsVierges">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="#dumatosDocsApproAchats" class="nav-link" data-key="t-docs-appro-achats">
+                                    Appro / Achats </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosDocsCommerceLogistique" class="nav-link"
+                                   data-key="t-docs-commerce-logistique">
+                                    Commerce / Logistique </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosDocsAdministratifRh" class="nav-link"
+                                   data-key="t-docs-administratif-rh">
+                                    Administratif / RH </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosDocsMateriels" class="nav-link" data-key="t-docs-materiels">
+                                    Materiels </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                        </ul>
+                    </div>
+                </li> <!-- end Documents vierges Menu -->
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#dumatosFranchises" data-bs-toggle="collapse" role="button"
+                       aria-expanded="false" aria-controls="dumatosFranchises">
+                        <i class="ri-dashboard-2-line"></i> <span>Franchises</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="dumatosFranchises">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="#dumatosFranchisesRemontees" class="nav-link"
+                                   data-key="t-franchises-remontees">
+                                    Remontées / suggestions </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosFranchisesBook" class="nav-link"
+                                   data-key="t-franchises-book">
+                                    Book présentation </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                        </ul>
+                    </div>
+                </li> <!-- end Franchises Menu -->
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#dumatosConseils" data-bs-toggle="collapse" role="button"
+                       aria-expanded="false" aria-controls="dumatosConseils">
+                        <i class="ri-dashboard-2-line"></i> <span>Conseils d'experts</span>
+                    </a>
+
+                </li> <!-- end Conseils d'expert Menu -->
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#dumatosContacts" data-bs-toggle="collapse" role="button"
+                       aria-expanded="false" aria-controls="dumatosContacts">
+                        <i class="ri-dashboard-2-line"></i> <span>Contacts</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="dumatosContacts">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="#dumatosMesContacts" class="nav-link"
+                                   data-key="t-mes-contacts">
+                                    Mes contacts </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                            <li class="nav-item">
+                                <a href="#dumatosRepertoireContacts" class="nav-link"
+                                   data-key="t-repertoire-contacts">
+                                    Répertoire contacts </a>
+                                {#                                todo: data key a gerer #}
+                            </li>
+                        </ul>
+                    </div>
+                </li> <!-- end Contacts Menu -->
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#dumatosNotifs" data-bs-toggle="collapse" role="button"
+                       aria-expanded="false" aria-controls="dumatosNotifs">
+                        <i class="ri-dashboard-2-line"></i> <span>Notifications</span>
+                    </a>
+                </li> <!-- end Notifications Menu -->
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#dumatosGestionUsers" data-bs-toggle="collapse" role="button"
+                       aria-expanded="false" aria-controls="dumatosGestionUsers">
+                        <i class="ri-dashboard-2-line"></i> <span>Gestion utilisateurs</span>
+                    </a>
+                </li> <!-- end Gestion utilisateurs Menu -->
+
+                <hr>
+
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#dumatosDashboards" data-bs-toggle="collapse" role="button"
                        aria-expanded="false" aria-controls="dumatosDashboards">

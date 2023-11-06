@@ -1,10 +1,30 @@
-{% extends 'yann/base.html.twig' %}
 {% block body %}
+    <h2>
+        {{ file.fileName }}
+    </h2>
 
     {{ form_start(form) }}
+    <div>
     <div class="">
         {{ form_row(form.file) }}
     </div>
+    {% if fileExtension == 'jpg' or fileExtension == 'bmp' or fileExtension == 'png' %}
+        <div>
+            <img src="{{ file.url }}" alt="">
+        </div>
+    {% endif %}
+    {% if fileExtension == 'pdf' %}
+        <div>
+            <object data="https://127.0.0.1:8000/{{ file.url }}" type="application/pdf" width="600px" height="400">
+
+                <p>It appears your Web browser is not configured to display PDF files.
+                    No worries, just <a href="{{ file.url }}">click here to download the PDF file.</a>
+                </p>
+
+            </object>
+        </div>
+        </div>
+    {% endif %}
     <div class="">
         {{ form_row(form.category) }}
     </div>

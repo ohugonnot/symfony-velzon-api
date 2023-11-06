@@ -1,32 +1,29 @@
-<!DOCTYPE html>
-
-<title>Objectif</title>
-
+{% extends '/yann/base.html.twig' %}
 {% block body %}
     <h1>Objectif</h1>
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ objectif.id }}</td>
-            </tr>
-            <tr>
-                <th>Month</th>
-                <td>{{ objectif.month }}</td>
-            </tr>
-            <tr>
-                <th>Year</th>
-                <td>{{ objectif.year }}</td>
-            </tr>
-            <tr>
-                <th>Service</th>
-                <td>{{ objectif.service }}</td>
-            </tr>
-            <tr>
-                <th>Objectif</th>
-                <td>{{ objectif.objectif }}</td>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <td>{{ objectif.id }}</td>
+        </tr>
+        <tr>
+            <th>Month</th>
+            <td>{{ objectif.month }}</td>
+        </tr>
+        <tr>
+            <th>Year</th>
+            <td>{{ objectif.year }}</td>
+        </tr>
+        <tr>
+            <th>Service</th>
+            <td>{{ objectif.service }}</td>
+        </tr>
+        <tr>
+            <th>Objectif</th>
+            <td>{{ objectif.objectif }}</td>
+        </tr>
         </tbody>
     </table>
 

@@ -161,7 +161,10 @@ function loadFileData(datas) {
                   <input class="form-control filelist-id" type="hidden" value="' + fileData.id + '" id="filelist-' + fileData.id + '">\
             <div class="d-flex align-items-center">\
                 <div class="flex-shrink-0 fs-17 me-2 filelist-icon">' + fileIconElm + '</div>\
-                <div class="flex-grow-1 filelist-name">' + fileData.fileName + '</div>\
+                <div class="flex-grow-12 filelist-name">\
+                <a href="/file/' + fileData.id + '">\
+                ' + fileData.fileName + '</div>\
+                </a>\
                 <div class="d-none filelist-type">' + fileData.filetype + '</div>\
             </div>\
         </td>\

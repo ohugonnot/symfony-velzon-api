@@ -38,7 +38,7 @@ class Company
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $phone = null;
 
-    #[ORM\ManyToMany(targetEntity: Contact::class, inversedBy: 'companies')]
+    #[ORM\ManyToMany(targetEntity: Contact::class, inversedBy: 'companies', cascade: ['persist'])]
     private Collection $contacts;
 
     #[ORM\Column]

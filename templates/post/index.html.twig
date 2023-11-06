@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends '/yann/base.html.twig' %}
 
 {% block title %}Post index{% endblock %}
 
@@ -7,16 +7,16 @@
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Content</th>
-                <th>DateFrom</th>
-                <th>DateTo</th>
-                <th>Status</th>
-                <th>FeaturedImg</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Content</th>
+            <th>DateFrom</th>
+            <th>DateTo</th>
+            <th>Status</th>
+            <th>FeaturedImg</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for post in posts %}

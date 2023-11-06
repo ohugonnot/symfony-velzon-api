@@ -1,22 +1,19 @@
-<!DOCTYPE html>
-
-<title>Vehicle index</title>
-
+{% extends '/yann/base.html.twig' %}
 {% block body %}
     <h1>Vehicle index</h1>
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Immat</th>
-                <th>EntryDate</th>
-                <th>Marque</th>
-                <th>Modele</th>
-                <th>Carburant</th>
-                <th>NumAssurance</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Immat</th>
+            <th>EntryDate</th>
+            <th>Marque</th>
+            <th>Modele</th>
+            <th>Carburant</th>
+            <th>NumAssurance</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for vehicle in vehicles %}

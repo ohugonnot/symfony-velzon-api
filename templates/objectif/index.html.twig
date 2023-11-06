@@ -1,20 +1,17 @@
-<!DOCTYPE html>
-
-<title>Objectif index</title>
-
+{% extends '/yann/base.html.twig' %}
 {% block body %}
     <h1>Objectif index</h1>
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Month</th>
-                <th>Year</th>
-                <th>Service</th>
-                <th>Objectif</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Month</th>
+            <th>Year</th>
+            <th>Service</th>
+            <th>Objectif</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for objectif in objectifs %}

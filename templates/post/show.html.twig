@@ -1,40 +1,59 @@
-{% extends 'base.html.twig' %}
+{% extends '/yann/base.html.twig' %}
 
 {% block title %}Post{% endblock %}
 
 {% block body %}
-    <h1>Post</h1>
+    <div class="card">
+        <div class="card-header">
+            <h1>{{ post.title }}</h1>
+
+        </div>
+        <div class="card card-body">
+
+            <img class="card-img" src="{{ post.featuredImg }}" alt="{{ post.title }}"
+                 style="max-height: 50vh; width: fit-content">
+            <p class="text-muted mt-2">
+                {{ post.postedBy }} le {{ post.dateFrom | date('d/m/y H:i') }}
+            </p>
+            <p class="card-text mt-2">
+                {{ post.content }}
+            </p>
+
+        </div>
+        <div class="card-footer">
+        </div>
+    </div>
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ post.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ post.title }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ post.content }}</td>
-            </tr>
-            <tr>
-                <th>DateFrom</th>
-                <td>{{ post.dateFrom ? post.dateFrom|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>DateTo</th>
-                <td>{{ post.dateTo ? post.dateTo|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ post.status ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>FeaturedImg</th>
-                <td>{{ post.featuredImg }}</td>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <td>{{ post.id }}</td>
+        </tr>
+        <tr>
+            <th>Title</th>
+            <td>{{ post.title }}</td>
+        </tr>
+        <tr>
+            <th>Content</th>
+            <td>{{ post.content }}</td>
+        </tr>
+        <tr>
+            <th>DateFrom</th>
+            <td>{{ post.dateFrom ? post.dateFrom|date('Y-m-d H:i:s') : '' }}</td>
+        </tr>
+        <tr>
+            <th>DateTo</th>
+            <td>{{ post.dateTo ? post.dateTo|date('Y-m-d H:i:s') : '' }}</td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>{{ post.status ? 'Yes' : 'No' }}</td>
+        </tr>
+        <tr>
+            <th>FeaturedImg</th>
+            <td>{{ post.featuredImg }}</td>
+        </tr>
         </tbody>
     </table>
 

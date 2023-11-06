@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-
-<title>Edit File</title>
-
+{% extends '/yann/base.html.twig' %}
 {% block body %}
-    <h1>Edit File</h1>
+    <h1>Éditer un fichier</h1>
 
     {{ include('file/_form.html.twig', {'button_label': 'Update'}) }}
+
 
     <a href="{{ path('app_file_index') }}">back to list</a>
 

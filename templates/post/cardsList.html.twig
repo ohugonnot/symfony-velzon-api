@@ -26,19 +26,35 @@
                 {{ include('partials/page-title.html.twig', {pagetitle: 'Base UI', title: 'Cards'}) }}
 
                 <div class="row">
-                    {% for actu in actus %}
+                    {% for post in posts %}
                         <div class="col-xxl-4 col-lg-6">
                             <div class="card">
-                                {% if actu.featuredImg %}
-                                    <img class="card-img-top img-fluid" src="{{ actu.featuredImg }}"
-                                         alt="Card image cap">
+                                {% if post.featuredImg %}
+                                    <a href="{{ path('app_post_show', {'id': post.id }) }}">
+                                        <img class="card-img-top img-fluid" src="{{ post.featuredImg }}"
+                                             alt="Card image cap">
+                                    </a>
                                 {% endif %}
                                 <div class="card-body">
-                                    <h4 class="card-title mb-2">{{ actu.title }}</h4>
-                                    <p class="card-text text-muted"> {{ actu.content }} </p>
+                                    <h4 class="card-title mb-2">{{ post.title }}</h4>
+                                    <p class="card-text text-muted"> {{ post.content }} </p>
                                     <p class="card-text">
-                                        Le {{ actu.dateFrom | date("d/m/y H:i") }} par {{ actu.postedBy }}
+                                        Le {{ post.dateFrom | date("d/m/y H:i") }} par {{ post.postedBy }}
                                     </p>
+                                    <p class="card-text">
+                                        <a href="{{ path('app_post_edit', {'id': post.id}) }}">
+                                            <i class="ri-edit-fill"/>Éditer</i>
+                                        </a>
+                                    </p>
+
+                                    {#                                        TODO gerer les delete #}
+                                    {#                                    <form action="{{ path('app_post_delete', {'id': post.id }) }}" method="post"> #}
+                                    {#                                        <input type="submit" value="delete"> #}
+                                    {#                                    </form> #}
+
+                                    </p>
+                                    {{ include('post/_delete_form.html.twig') }}
+
                                 </div>
                             </div>
                         </div><!-- end col -->

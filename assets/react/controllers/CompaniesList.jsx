@@ -201,7 +201,10 @@ export default function CompaniesList(props) {
                                                 <img src="/assets/images/companies/img-8.png" alt=""
                                                      className="avatar-xxs rounded-circle image_src object-fit-cover"/>
                                             </div>
-                                            <div className="flex-grow-1 ms-2 name">{company.name}
+                                            <div className="flex-grow-1 ms-2 name">
+                                                <a href={company.id}>
+                                                    {company.name}
+                                                </a>
                                             </div>
                                         </div>
                                     </td>

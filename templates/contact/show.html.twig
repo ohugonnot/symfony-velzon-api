@@ -1,50 +1,92 @@
-<!DOCTYPE html>
-
-<title>Contact</title>
-
+{% extends '/yann/base.html.twig' %}
 {% block body %}
     <h1>Contact</h1>
+    <div class="container text-lg-start">
+        <div class="row row-cols-2">
+            <div class="col-1">
+                <div class="p-1">
+                    <a href="{{ path('app_contact_edit', {'id': contact.id}) }}">
+                        <button class="btn btn-info">
+                            éditer
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <div class="col-1">
+                <div class="p-1">
+                    {{ include('contact/_delete_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ contact.id }}</td>
-            </tr>
-            <tr>
-                <th>FirstName</th>
-                <td>{{ contact.firstName }}</td>
-            </tr>
-            <tr>
-                <th>LastName</th>
-                <td>{{ contact.lastName }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ contact.email }}</td>
-            </tr>
-            <tr>
-                <th>Phone</th>
-                <td>{{ contact.phone }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ contact.createdAt ? contact.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ contact.updatedAt ? contact.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Active</th>
-                <td>{{ contact.active ? 'Yes' : 'No' }}</td>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <td>{{ contact.id }}</td>
+        </tr>
+        <tr>
+            <th>FirstName</th>
+            <td>{{ contact.firstName }}</td>
+        </tr>
+        <tr>
+            <th>LastName</th>
+            <td>{{ contact.lastName }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>
+                <a href="mailto:{{ contact.email }}">
+                    {{ contact.email }}
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th>Notes</th>
+            <td>{{ contact.notes }}</td>
+        </tr>
+        <tr>
+            <th>Entreprises</th>
+            <td>
+                <ul>
+                    {% for company in contact.companies %}
+                        <li>
+                            <a href="{{ path('app_company_show', {'id': company.id }) }}">
+                                {{ company.name }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+            </td>
+        </tr>
+        <tr>
+            <th>Téléphone</th>
+            <td>{{ contact.phone }}</td>
+        </tr>
+        <tr>
+            <th>Date de création</th>
+            <td>{{ contact.createdAt ? contact.createdAt|date('d/m/Y H:i') : '' }}</td>
+        </tr>
+        <tr>
+            <th>Date de mise à jour</th>
+            <td>{{ contact.updatedAt ? contact.updatedAt|date('d/m/Y H:i') : '' }}</td>
+        </tr>
+        <tr>
+            <th>Actif</th>
+            <td>{{ contact.active ? 'Oui' : 'Non' }}</td>
+        </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_contact_index') }}">back to list</a>
+    <p>
+        <a href="{{ path('app_contact_index') }}">
+            <button class="btn btn-info">
+                retour
+            </button>
+        </a>
+    </p>
 
-    <a href="{{ path('app_contact_edit', {'id': contact.id}) }}">edit</a>
 
-    {{ include('contact/_delete_form.html.twig') }}
 {% endblock %}

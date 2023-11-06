@@ -30,6 +30,36 @@ class ContactController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $tagForm = $form->getData();
+            $submittedTags = $tagForm->getTags();
+            if ($submittedTags) {
+//                dd($submittedTags);
+                foreach ($submittedTags as $tag) {
+                    $contact->addTag($tag);
+
+                }
+            }
+            $newTags = $form->get('newtags')->getData();
+            if ($newTags) {
+                foreach ($newTags as $newTag) {
+                    $contact->addTag($newTag);
+                }
+            }
+            $companiesForm = $form->getData();
+            $submittedCompanies = $companiesForm->getCompanies();
+            if ($submittedCompanies) {
+//                dd($submittedTags);
+                foreach ($submittedCompanies as $submittedCompany) {
+                    $contact->addCompany($submittedCompany);
+
+                }
+            }
+            $newCompanies = $form->get('newcompanies')->getData();
+            if ($newCompanies) {
+                foreach ($newCompanies as $newCompany) {
+                    $contact->addCompany($newCompany);
+                }
+            }
             $entityManager->persist($contact);
             $entityManager->flush();
 
@@ -57,15 +87,50 @@ class ContactController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $tagForm = $form->getData();
-            $submittedTags = $tagForm->getTags();
+
+            // Cascading save of selected and updated Tag entities
+            $formDatas = $form->getData();
+
+            $submittedTags = $formDatas->getTags();
             if ($submittedTags) {
-//                dd($submittedTags);
                 foreach ($submittedTags as $tag) {
                     $contact->addTag($tag);
+//                    dd($contact);
 
                 }
             }
+            $newTags = $form->get('newtags')->getData();
+            if ($newTags) {
+                foreach ($newTags as $newTag) {
+                    $contact->addTag($newTag);
+//                    dd($contact);
+                }
+            }
+            // Cascading save of selected and updated Company entities
+
+            $submittedCompanies = $form->get('companies')->getData();
+            if ($submittedCompanies) {
+                foreach ($submittedCompanies as $company) {
+//                    dd($submittedCompanies->isDirty());
+                    $contact->addCompany($company);
+                    $entityManager->persist($company);
+//                    dd($contact);
+                }
+            }
+//            dd($contact);
+
+            $newCompanies = $form->get('newcompanies')->getData();
+            if ($newCompanies) {
+                foreach ($newCompanies as $company) {
+                    $contact->addCompany($company);
+                    $entityManager->persist($company);
+//                    dd($contact);
+                }
+            }
+
+//            dd($contact);
+
+            $entityManager->persist($contact);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_contact_index', [], Response::HTTP_SEE_OTHER);

@@ -1,51 +1,45 @@
-{{ include('partials/main.html.twig') }}
-
+<!doctype html>
+<html lang="fr" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg"
+      data-sidebar-image="none" data-preloader="disable">
 <head>
+    <meta charset="utf-8"/>
+    <title>{% block title %}Stage{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="" name="description"/>
+    <meta content="Themesbrand" name="author"/>
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
 
-    {{ include('partials/title-meta.html.twig', {title: 'Starter'}) }}
-
-    {{ include('partials/head-css.html.twig') }}
-    {{ encore_entry_script_tags('app') }}
-    {{ encore_entry_link_tags('app') }}
-
+    {% block styleSheets %}
+        {{ include('partials/head-css.html.twig') }}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
 </head>
-
 <body>
-
-<!-- Begin page -->
 <div id="layout-wrapper">
-
-    {{ include('partials/menu.html.twig') }}
-
-    <!-- ============================================================== -->
-    <!-- Start right Content here -->
-    <!-- ============================================================== -->
+    {% block Menu %}
+        {{ include('partials/menu.html.twig') }}
+    {% endblock %}
     <div class="main-content">
-
         <div class="page-content">
             <div class="container-fluid">
-
-                {{ include('partials/page-title.html.twig', {pagetitle: 'Pages', title: 'Starter'}) }}
-
                 {% block body %}
-                    <div {{ react_component('Hello') }}> blabla</div>
                 {% endblock %}
             </div>
-            <!-- container-fluid -->
         </div>
-        <!-- End Page-content -->
-
-        {{ include('partials/footer.html.twig') }}
+        {% block footer %}
+            {{ include('partials/footer.html.twig') }}
+        {% endblock %}
     </div>
-    <!-- end main content-->
-
 </div>
-<!-- END layout-wrapper -->
 
+
+{% block javaScript %}
+    {{ include('partials/vendor-scripts.html.twig') }}
+    {{ encore_entry_script_tags('app') }}
+    <script src="{{ asset("/assets/js/app.js") }}"></script>
+{% endblock %}
 
 {{ include('partials/customizer.html.twig') }}
-
-{{ include('partials/vendor-scripts.html.twig') }}
 
 </body>
 

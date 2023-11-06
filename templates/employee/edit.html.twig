@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-
-<title>Edit Employee</title>
-
+{% extends '/yann/base.html.twig' %}
 {% block body %}
-    <h1>Edit Employee</h1>
+    <h1>Éditer un employé</h1>
 
     {{ include('employee/_form.html.twig', {'button_label': 'Update'}) }}
 

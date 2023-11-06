@@ -1,54 +1,132 @@
-<!DOCTYPE html>
-
-<title>Vehicle</title>
-
+{% extends '/yann/base.html.twig' %}
 {% block body %}
-    <h1>Vehicle</h1>
+    <div class="container-fluid">
 
-    <table class="table">
-        <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ vehicle.id }}</td>
-        </tr>
-        <tr>
-            <th>Immat</th>
-            <td>{{ vehicle.immat }}</td>
-        </tr>
-        <tr>
-            <th>EntryDate</th>
-            <td>{{ vehicle.entryDate ? vehicle.entryDate|date('Y-m-d') : '' }}</td>
-        </tr>
-        <tr>
-            <th>Marque</th>
-            <td>{{ vehicle.marque }}</td>
-        </tr>
-        <tr>
-            <th>Modele</th>
-            <td>{{ vehicle.modele }}</td>
-        </tr>
-        <tr>
-            <th>Carburant</th>
-            <td>{{ vehicle.carburant }}</td>
-        </tr>
-        <tr>
-            <th>NumAssurance</th>
-            <td>{{ vehicle.numAssurance }}</td>
-        </tr>
-        <tr>
-            <th>Fichiers</th>
-            {% for file in vehicle.files %}
-                <td>
-                    <a href="/assets/uploads/Documents/{{ file.fileName }}"> {{ file }} </a>
-                </td>
-            {% endfor %}
-        </tr>
-        </tbody>
-    </table>
+        {{ include('partials/page-title.html.twig', {pagetitle: 'Base UI', title: 'Cards'}) }}
 
-    <a href="{{ path('app_vehicle_index') }}">back to list</a>
+        <div class="row">
+            <h1>Vehicle</h1>
 
-    <a href="{{ path('app_vehicle_edit', {'id': vehicle.id}) }}">edit</a>
+            <div class="card">
+                <div class="card-header">
+                    <h1>{{ vehicle.immat }}</h1>
+                    <p>
+                        <a href="{{ path('app_vehicle_edit', {'id': vehicle.id}) }}">
+                            <i class="ri-edit-fill">
+                                Éditer
+                            </i>
+                        </a>
+                        <a class="m-2" href="{{ path('app_vehicle_delete', {'id': vehicle.id }) }}">
+                            <i class="ri-delete-back-fill">
+                                Supprimer
+                            </i>
+                        </a>
+                    </p>
+                </div>
+                <div class="card card-body">
+                    <h2>
+                        Infos véhicule
+                    </h2>
+                    <p>
+                        {{ vehicle.marque }} {{ vehicle.modele }}
+                    </p>
+                    <p>Carburant: {{ vehicle.carburant }}</p>
+                    <p>Date d'entrée: {{ vehicle.entryDate | date('d/m/y') }}</p>
+                    <p>Numéro assurance: {{ vehicle.numAssurance }}</p>
+                    <h2>Fichiers</h2>
+                    <ul>
+                        {% for file in vehicle.files %}
+                            <li>
+                                <a href="{{ file.url }}">
+                                    {{ file.fileName }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
 
-    {{ include('vehicle/_delete_form.html.twig') }}
+
+                </div>
+            </div>
+
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ vehicle.id }}</td>
+                </tr>
+                <tr>
+                    <th>Immat</th>
+                    <td>{{ vehicle.immat }}</td>
+                </tr>
+                <tr>
+                    <th>EntryDate</th>
+                    <td>{{ vehicle.entryDate ? vehicle.entryDate|date('Y-m-d') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Marque</th>
+                    <td>{{ vehicle.marque }}</td>
+                </tr>
+                <tr>
+                    <th>Modele</th>
+                    <td>{{ vehicle.modele }}</td>
+                </tr>
+                <tr>
+                    <th>Carburant</th>
+                    <td>{{ vehicle.carburant }}</td>
+                </tr>
+                <tr>
+                    <th>NumAssurance</th>
+                    <td>{{ vehicle.numAssurance }}</td>
+                </tr>
+                <tr>
+                    <th>Fichiers</th>
+                    {% for file in vehicle.files %}
+                        <td>
+                            <a href="/assets/uploads/Vehicles/{{ file.fileName }}"> {{ file }} </a>
+                        </td>
+                    {% endfor %}
+                </tr>
+                </tbody>
+            </table>
+
+            <a href="{{ path('app_vehicle_index') }}">back to list</a>
+
+            <a href="{{ path('app_vehicle_edit', {'id': vehicle.id}) }}">edit</a>
+
+            {{ include('vehicle/_delete_form.html.twig') }}
+        </div>
+    </div>
+    <!-- container-fluid -->
+
 {% endblock %}
+
+{% block javaScript %}
+    {{ parent() }}
+    <!-- prismjs plugin -->
+    <script src="{{ asset('assets/libs/prismjs/prism.js') }}"></script>
+
+    <!-- Masonry plugin -->
+    <script src="{{ asset('assets/libs/masonry-layout/masonry.pkgd.min.js') }}"></script>
+
+    <script src="{{ asset('assets/js/pages/card.init.js') }}"></script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

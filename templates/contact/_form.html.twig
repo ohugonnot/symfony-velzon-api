@@ -1,4 +1,4 @@
-{% extends 'yann/base.html.twig' %}
+{% extends '/yann/base.html.twig' %}
 {% block body %}
     {{ form_start(form) }}
     <div class="">
@@ -13,12 +13,62 @@
     <div class="">
         {{ form_row(form.phone) }}
     </div>
+    <div>
+        {{ form_row(form.notes) }}
+    </div>
     <div class="">
         {{ form_row(form.tags) }}
+        <button type="button" class="add_item_link" data-collection-holder-class="newtags">Ajouter un tag</button>
+        <ul class="newtags"
+            data-index="{{ form.newtags|length > 0 ? form.newtags|last.vars.name + 1 : 0 }}"
+            data-prototype="{{ form_widget(form.newtags.vars.prototype)|e('html_attr') }}"
+        ></ul>
+    </div>
+    <div class="">
+        {{ form_row(form.companies) }}
+        <button type="button" class="add_item_link" data-collection-holder-class="newcompanies">Ajouter une entreprise
+        </button>
+        <ul class="newcompanies"
+            data-index="{{ form.newcompanies|length > 0 ? form.newcompanies|last.vars.name + 1 : 0 }}"
+            data-prototype="{{ form_widget(form.newcompanies.vars.prototype)|e('html_attr') }}"
+        ></ul>
     </div>
     <div class="">
         {{ form_row(form.active) }}
     </div>
+    {#    <div> #}
+    {#        {{ form_row(form.companies) }} #}
+
+
+    {#        // Comment j'affiche les files existants #}
+    {#    </div> #}
     <button class="btn">{{ button_label|default('Save') }}</button>
     {{ form_end(form) }}
+    <script>
+        const addFormToCollection = (e) => {
+            const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+
+            const item = document.createElement('li');
+
+            item.innerHTML = collectionHolder
+                .dataset
+                .prototype
+                .replace(
+                    /__name__/g,
+                    collectionHolder.dataset.index
+                );
+
+            collectionHolder.appendChild(item);
+
+            collectionHolder.dataset.index++;
+        };
+
+        document
+            .querySelectorAll('.add_item_link')
+            .forEach(btn => {
+                btn.addEventListener("click", addFormToCollection)
+            });
+
+
+    </script>
 {% endblock %}

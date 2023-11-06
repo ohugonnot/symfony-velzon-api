@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends '/yann/base.html.twig' %}
 
 {% block body %}
     <div {{ react_component('LoanCalculator') }}>
@@ -6,6 +6,6 @@
     <!-- end row -->
 {% endblock %}
 
-{% block javascripts %}
+{% block javaScript %}
     {{ parent() }}
 {% endblock %}

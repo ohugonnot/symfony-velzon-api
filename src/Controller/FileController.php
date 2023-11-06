@@ -75,6 +75,8 @@ class FileController extends AbstractController
     public function new(Request $request, FileRepository $fileRepository, SluggerInterface $slugger): Response
     {
         $file = new File();
+        $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
+
         $form = $this->createForm(StoredFileType::class, $file);
         $form->handleRequest($request);
 
@@ -124,6 +126,7 @@ class FileController extends AbstractController
 
         return $this->renderForm('file/new.html.twig', [
             'file' => $file,
+            'fileExtension' => $fileExtension,
             'form' => $form,
         ]);
     }
@@ -131,18 +134,82 @@ class FileController extends AbstractController
     #[Route('/{id}', name: 'app_file_show', methods: ['GET'])]
     public function show(File $file): Response
     {
+        $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
+
         return $this->render('file/show.html.twig', [
             'file' => $file,
+            'fileExtension' => $fileExtension
+        ]);
+    }
+
+    #[Route('/categorie/{category}', name: 'app_file_category_show', methods: ['GET'])]
+    public function showCategory(FileRepository $fileRepository, Request $request): Response
+    {
+        $category = $request->get('category');
+        $finder = new Finder();
+
+        //we define files directories
+
+        $categoryDirectory = './assets/uploads/' . $category;
+
+        $mediasDirectory = './assets/uploads/Media';
+        $documentsDirectory = './assets/uploads/Documents';
+        $recentsDirectory = './assets/uploads/Recent';
+        $importantsDirectory = './assets/uploads/Important';
+        $deletedDirectory = './assets/uploads/Deleted';
+
+        //we count files in each folder to render it
+        $nbOfMediaFiles = 0;
+        $nbOfDocumentFiles = 0;
+        $nbOfRecentFiles = 0;
+        $nbOfImportantFiles = 0;
+        $nbOfDeletedFiles = 0;
+
+        $nbOfCategoryFiles = $finder->in($categoryDirectory)->files()->count();
+
+        if (is_dir($mediasDirectory)) {
+            $nbOfMediaFiles = $finder->in($mediasDirectory)->files()->count();
+        }
+        if (is_dir($documentsDirectory)) {
+
+            $nbOfDocumentFiles = $finder->in($documentsDirectory)->files()->count();
+        }
+//        dd($finder->in($documentsDirectory)->files()->count());
+
+        if (is_dir($recentsDirectory)) {
+            $nbOfRecentFiles = $finder->in($recentsDirectory)->files()->count();
+        }
+
+        if (is_dir($importantsDirectory)) {
+            $nbOfImportantFiles = $finder->in($importantsDirectory)->files()->count();
+        }
+        if (is_dir($deletedDirectory)) {
+            $nbOfDeletedFiles = $finder->in($deletedDirectory)->files()->count();
+        }
+
+        //
+
+        return $this->render('yann/filemanager.html.twig', [
+            'category' => $category,
+            'categoryFiles' => $nbOfCategoryFiles,
+            'files' => $fileRepository->findBy(['category' => $category]),
+            'mediaFiles' => $nbOfMediaFiles,
+            'docFiles' => $nbOfDocumentFiles,
+            'recentFiles' => $nbOfRecentFiles,
+            'deletedFiles' => $nbOfDeletedFiles,
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_file_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, File $file, FileRepository $fileRepository): Response
     {
+        $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
+
         $form = $this->createForm(StoredFileType::class, $file);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $fileRepository->save($file, true);
 
             return $this->redirectToRoute('app_file_index', [], Response::HTTP_SEE_OTHER);
@@ -150,6 +217,7 @@ class FileController extends AbstractController
 
         return $this->renderForm('file/edit.html.twig', [
             'file' => $file,
+            'fileExtension' => $fileExtension,
             'form' => $form,
         ]);
     }

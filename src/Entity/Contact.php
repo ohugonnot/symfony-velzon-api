@@ -6,6 +6,7 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ContactRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
@@ -30,7 +31,7 @@ class Contact
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $phone = null;
 
-    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'contacts')]
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'contacts', cascade: ['persist'])]
     private Collection $tags;
 
     #[ORM\Column]
@@ -42,8 +43,11 @@ class Contact
     #[ORM\Column]
     private ?bool $active = null;
 
-    #[ORM\ManyToMany(targetEntity: Company::class, mappedBy: 'contacts')]
+    #[ORM\ManyToMany(targetEntity: Company::class, mappedBy: 'contacts', cascade: ['persist'])]
     private Collection $companies;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $notes = null;
 
     public function __construct()
     {
@@ -196,5 +200,17 @@ class Contact
     public function __toString(): string
     {
         return $this->firstName;
+    }
+
+    public function getNotes(): ?string
+    {
+        return $this->notes;
+    }
+
+    public function setNotes(?string $notes): static
+    {
+        $this->notes = $notes;
+
+        return $this;
     }
 }

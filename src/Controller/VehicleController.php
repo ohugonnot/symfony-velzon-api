@@ -77,6 +77,7 @@ class VehicleController extends AbstractController
                 $file->setFileName($newFilename);
                 $file->setCategory('Vehicles');
                 $file->setFileSize($uploadfile->getSize());
+                dd($file);
                 $vehicle->addFile($file);
 //                dd($vehicle);
             }
@@ -104,12 +105,45 @@ class VehicleController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_vehicle_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Vehicle $vehicle, VehiclesRepository $vehiclesRepository): Response
+    public function edit(Request $request, Vehicle $vehicle, VehiclesRepository $vehiclesRepository, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(VehicleType::class, $vehicle);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $files = $form->get('uploaded_files');
+            /** @var File $file */
+            foreach ($files as $file) {
+                $file = $file->getData();
+                $uploadfile = $file->getFile();
+//                dd($uploadfile);
+                if (!$uploadfile) {
+                    continue;
+                }
+
+                $fileSystem = new Filesystem();
+                $submittedFile = $uploadfile->getClientOriginalName();
+                $originalFilename = pathinfo($submittedFile, PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid('', false) . '.' . $uploadfile->guessExtension();
+                $rootDirectory = './assets/uploads';
+                $category = 'Vehicles';
+                $targetDirectory = $rootDirectory . "/" . $category;
+                $targetFile = $targetDirectory . '/' . $newFilename;
+
+                if (!directoryExists($targetDirectory)) {
+                    $fileSystem->mkdir($targetDirectory);
+                }
+
+                $fileSystem->copy($uploadfile, $targetFile);
+                $file->setUrl($targetFile);
+                $file->setFileName($newFilename);
+                $file->setCategory('Vehicles');
+                $file->setFileSize($uploadfile->getSize());
+                $vehicle->addFile($file);
+            }
+
             $vehiclesRepository->save($vehicle, true);
 
             return $this->redirectToRoute('app_vehicle_index', [], Response::HTTP_SEE_OTHER);

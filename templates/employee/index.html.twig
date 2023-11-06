@@ -1,21 +1,18 @@
-<!DOCTYPE html>
-
-<title>Employee index</title>
-
+{% extends '/yann/base.html.twig' %}
 {% block body %}
     <h1>Employee index</h1>
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>FirstName</th>
-                <th>LastName</th>
-                <th>BirthDate</th>
-                <th>EntryDate</th>
-                <th>ExitDate</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>BirthDate</th>
+            <th>EntryDate</th>
+            <th>ExitDate</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for employee in employees %}

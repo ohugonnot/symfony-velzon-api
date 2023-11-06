@@ -1,12 +1,29 @@
-<!DOCTYPE html>
-
-<title>File</title>
-
+{% extends '/yann/base.html.twig' %}
 {% block body %}
     <h1>File</h1>
 
     <table class="table">
         <tbody>
+        <tr>
+            <th>Prévisualisation</th>
+            <td>
+                {% if fileExtension == 'jpg' or fileExtension == 'bmp' or fileExtension == 'png' %}
+                    <a href="https://127.0.0.1:8000/{{ file.url }}">
+                        <img src="https://127.0.0.1:8000/{{ file.url }}" alt="">
+                    </a>
+                {% endif %}
+                {% if fileExtension == 'pdf' %}
+                    <object data="https://127.0.0.1:8000/{{ file.url }}" type="application/pdf" width="1100"
+                            height="800">
+
+                        <p>It appears your Web browser is not configured to display PDF files.
+                            No worries, just <a href="{{ file.url }}">click here to download the PDF file.</a>
+                        </p>
+
+                    </object>
+                {% endif %}
+            </td>
+        </tr>
         <tr>
             <th>Id</th>
             <td>{{ file.id }}</td>
@@ -19,6 +36,7 @@
             <th>Category</th>
             <td>{{ file.category }}</td>
         </tr>
+        {#        {% if file %} #}
         </tbody>
     </table>
 

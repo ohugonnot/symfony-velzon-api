@@ -45,7 +45,8 @@ class PostType extends AbstractType
             ])
             ->add('featuredImg', FileType::class, [
                 'label' => 'Image de couverture',
-                'required' => false
+                'required' => false,
+                'data_class' => null
             ])
 //            ->add('postedBy')
             ->add('status', CheckboxType::class, [

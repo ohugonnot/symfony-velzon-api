@@ -26,9 +26,11 @@ class PostRepository extends ServiceEntityRepository
      */
     public function findActivePosts($value): array
     {
+        $now = new \DateTime();
         return $this->createQueryBuilder('p')
-            ->andWhere('p.status = :val')
+            ->andWhere('p.status = :val AND p.dateTo > :now ')
             ->setParameter('val', $value)
+            ->setParameter('now', $now)
             ->orderBy('p.dateFrom', 'DESC')
             ->getQuery()
             ->getResult();

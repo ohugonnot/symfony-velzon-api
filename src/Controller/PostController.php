@@ -29,7 +29,7 @@ class PostController extends AbstractController
     public function cardsList(PostRepository $postRepo): Response
     {
         return $this->render('post/cardsList.html.twig', [
-            'actus' => $postRepo->findActivePosts(true),
+            'posts' => $postRepo->findActivePosts(true),
         ]);
     }
 
@@ -43,7 +43,6 @@ class PostController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $fileSystem = new Filesystem();
-//            $submittedFile = $file->getUrl();
             $submittedFile = $form->get('featuredImg')->getData();
             if ($submittedFile) {
                 $originalFilename = pathinfo($submittedFile->getClientOriginalName(), PATHINFO_FILENAME);
@@ -59,7 +58,6 @@ class PostController extends AbstractController
                 $fileSystem->copy($submittedFile, $targetFile);
                 $post->setFeaturedImg(trim($targetFile, '.'));
             }
-//
 
             $post->setPostedBy($this->getUser());
 
@@ -84,12 +82,35 @@ class PostController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_post_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Post $post, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Post $post, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
+        $currentFeaturedImg = $post->getFeaturedImg();
+
         $form = $this->createForm(PostType::class, $post);
+
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
+            $uploadedFile = $post->getFile();
+//            dd($currentFeaturedImg, $uploadedFile);
+            $fileSystem = new Filesystem();
+            $submittedFile = $form->get('featuredImg')->getData();
+            if ($submittedFile) {
+                $originalFilename = pathinfo($submittedFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid('', false) . '.' . $submittedFile->guessExtension();
+                $targetDirectory = './assets/uploads/actus';
+                $targetFile = $targetDirectory . '/' . $newFilename;
+
+                if (!directoryExists($targetDirectory)) {
+                    $fileSystem->mkdir($targetDirectory);
+                }
+
+                $fileSystem->copy($submittedFile, $targetFile);
+                $post->setFeaturedImg(trim($targetFile, '.'));
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);

@@ -6,6 +6,7 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Repository\PostRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 #[ApiResource]
@@ -37,6 +38,18 @@ class Post
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $featuredImg = null;
+
+    private ?UploadedFile $file = null;
+
+    public function getFile(): ?UploadedFile
+    {
+        return $this->file;
+    }
+
+    public function setFile(?UploadedFile $file): void
+    {
+        $this->file = $file;
+    }
 
     public function getId(): ?int
     {

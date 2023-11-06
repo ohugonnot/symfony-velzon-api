@@ -95,12 +95,43 @@ class CompanyController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_company_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Company $company, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Company $company, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(CompanyType::class, $company);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $files = $form->get('added_files');
+            /** @var File $file */
+            foreach ($files as $file) {
+                $file = $file->getData();
+                $uploadfile = $file->getFile();
+                if (!$uploadfile) {
+                    continue;
+                }
+
+                $fileSystem = new Filesystem();
+                $submittedFile = $uploadfile->getClientOriginalName();
+                $originalFilename = pathinfo($submittedFile, PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid('', false) . '.' . $uploadfile->guessExtension();
+                $rootDirectory = './assets/uploads';
+                $category = $file->getCategory();
+                $targetDirectory = $rootDirectory . "/" . $category;
+                $targetFile = $targetDirectory . '/' . $newFilename;
+
+                if (!directoryExists($targetDirectory)) {
+                    $fileSystem->mkdir($targetDirectory);
+                }
+
+                $fileSystem->copy($uploadfile, $targetFile);
+                $file->setUrl($targetFile);
+                $file->setFileName($newFilename);
+                $file->setFileSize($uploadfile->getSize());
+                $company->addFile($file);
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_company_index', [], Response::HTTP_SEE_OTHER);
